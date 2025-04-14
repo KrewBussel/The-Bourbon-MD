@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .beverage-section {
+      display: flex;
+      width: 100%;
+      height: 80vh;
+      max-height: 800px;
+      background-color: #1c1c1c;
+      overflow: hidden;
+      flex-wrap: wrap;
+    }
+
+    .beverage-image-container {
+      flex: 1 1 60%;
+      position: relative;
+      height: 100%;
+      order: 1;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: all 0.8s ease;
+    }
+
+    .beverage-image-container.fade-in {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .beverage-image-container.fade-out {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+
+    .beverage-image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .beverage-image-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 40%;
+      height: 100%;
+      background: linear-gradient(to left, #1c1c1c, transparent);
+      z-index: 1;
+    }
+
+    .beverage-text {
+      flex: 1 1 40%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 120px 0 60px;
+      z-index: 2;
+      color: #e3d6c4;
+      order: 2;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.8s ease;
+    }
+
+    .beverage-text.fade-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .beverage-text.fade-out {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .beverage-text h2 {
+      font-size: 64px;
+      margin: 0;
+      font-weight: 400;
+      line-height: 1.1;
+    }
+
+    .divider {
+      width: 100px;
+      height: 2px;
+      background-color: #caa76a;
+      margin: 24px 0;
+    }
+
+    .subtitle {
+      font-size: 22px;
+      color: #caa76a;
+      margin-bottom: 32px;
+      max-width: 450px;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background-color: #f4ede4;
+      color: #1c1c1c;
+      padding: 16px 32px;
+      text-decoration: none;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 14px;
+      letter-spacing: 1px;
+      transition: 0.3s ease;
+      border-radius: 2px;
+      width: fit-content;
+      text-align: center;
+    }
+
+    .cta-button:hover {
+      background-color: #caa76a;
+    }
+
+    @media (max-width: 1200px) {
+      .beverage-section {
+        height: 70vh;
+        max-height: 600px;
+      }
+
+      .beverage-text {
+        padding: 0 80px 0 40px;
+      }
+
+      .beverage-text h2 {
+        font-size: 56px;
+      }
+
+      .subtitle {
+        font-size: 20px;
+        margin-bottom: 28px;
+      }
+
+      .divider {
+        margin: 20px 0;
+      }
+    }
+
+    @media (max-width: 992px) {
+      .beverage-section {
+        flex-direction: column;
+        height: auto;
+        max-height: none;
+      }
+
+      .beverage-text {
+        flex: 1 1 auto;
+        padding: 60px 20px;
+        text-align: center;
+        align-items: center;
+        order: 1;
+      }
+
+      .beverage-image-container {
+        flex: 1 1 auto;
+        height: 60vh;
+        order: 2;
+      }
+
+      .beverage-text h2 {
+        font-size: 48px;
+      }
+
+      .subtitle {
+        font-size: 20px;
+      }
+
+      .beverage-image-container::before {
+        width: 100%;
+        height: 40%;
+        background: linear-gradient(to bottom, #1c1c1c, transparent);
+        right: auto;
+        left: 0;
+      }
+
+      .cta-button {
+        width: auto;
+        min-width: 200px;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .beverage-text h2 {
+        font-size: 36px;
+      }
+
+      .subtitle {
+        font-size: 18px;
+      }
+
+      .cta-button {
+        padding: 12px 24px;
+        font-size: 13px;
+      }
+
+      .beverage-image-container {
+        height: 50vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="beverage-section">
+    <div class="beverage-image-container">
+      <img src="https://thebourbonmd.com/wp-content/uploads/2025/04/MD_BEV.jpg" alt="Craft Beverage Selection">
+    </div>
+    <div class="beverage-text">
+      <h2>Beverage Selection</h2>
+      <div class="divider"></div>
+      <p class="subtitle">Craft cocktails for every taste and every toast</p>
+      <a href="/beverage-selection" class="cta-button">View Selection</a>
+    </div>
+  </section>
+
+  <script>
+    const beverageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('fade-in');
+                entry.target.classList.remove('fade-out');
+            } else {
+                entry.target.classList.remove('fade-in');
+                entry.target.classList.add('fade-out');
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px'
+    });
+
+    document.querySelectorAll('.beverage-text, .beverage-image-container').forEach((el) => {
+        beverageObserver.observe(el);
+    });
+  </script>
+</body>
+</html> 

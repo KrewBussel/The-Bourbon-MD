@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .vip-section {
+            background-color: #1c1c1c;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            perspective: 1000px;
+            margin: 0 -100px;
+            padding: 0 100px;
+        }
+
+        .vip-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(28, 28, 28, 0.95);
+            z-index: 1;
+        }
+
+        .vip-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(45deg, rgba(202, 167, 106, 0.02) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(202, 167, 106, 0.02) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, rgba(202, 167, 106, 0.02) 75%),
+                linear-gradient(-45deg, transparent 75%, rgba(202, 167, 106, 0.02) 75%);
+            background-size: 200px 200px;
+            opacity: 0.3;
+            animation: patternMove 30s linear infinite;
+        }
+
+        .vip-background {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: calc(100% + 40px);
+            height: calc(100% + 40px);
+            object-fit: cover;
+            opacity: 0.35;
+            transform: translateZ(0);
+            transition: transform 0.5s ease-out;
+            filter: brightness(0.85) contrast(1.1) saturate(1.1);
+        }
+
+        .vip-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 40px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .vip-content.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .vip-content.fade-out {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .vip-frame {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 1px solid rgba(202, 167, 106, 0.2);
+            margin: 20px;
+            pointer-events: none;
+        }
+
+        .vip-frame::before,
+        .vip-frame::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 1px solid #caa76a;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards 1.5s;
+        }
+
+        .vip-frame::before {
+            top: -1px;
+            left: -1px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .vip-frame::after {
+            bottom: -1px;
+            right: -1px;
+            border-left: none;
+            border-top: none;
+        }
+
+        .vip-title {
+            position: relative;
+            display: inline-block;
+            font-family: 'Playfair Display', serif;
+            font-size: 82px;
+            color: #e3d6c4;
+            margin: 0 0 30px;
+            line-height: 1.2;
+            font-weight: 400;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            padding: 0 40px;
+        }
+
+        .vip-title.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .vip-title.fade-out {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .vip-title::before,
+        .vip-title::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 2px solid #caa76a;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards 1s;
+        }
+
+        .vip-title::before {
+            top: -15px;
+            left: 0;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .vip-title::after {
+            bottom: -15px;
+            right: 0;
+            border-left: none;
+            border-top: none;
+        }
+
+        .vip-divider {
+            position: relative;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent,
+                #caa76a,
+                #e3d6c4,
+                #caa76a,
+                transparent
+            );
+            margin: 40px auto;
+            animation: expandWidth 1.5s ease-out forwards 0.8s;
+        }
+
+        .vip-description {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            color: #caa76a;
+            max-width: 800px;
+            margin: 0 auto 50px;
+            line-height: 1.8;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .vip-description.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .vip-description.fade-out {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .vip-button {
+            display: inline-block;
+            background: linear-gradient(120deg, transparent 0%, transparent 50%, rgba(202, 167, 106, 0.3) 50%, transparent 100%);
+            background-size: 250% 100%;
+            color: #e3d6c4;
+            border: 2px solid #caa76a;
+            padding: 22px 44px;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-decoration: none;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+
+        .vip-button.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .vip-button.fade-out {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .vip-button:hover {
+            background-position: -150% 0;
+            color: #1c1c1c;
+            background-color: #caa76a;
+            transform: translateY(-3px);
+            box-shadow: 
+                0 10px 20px rgba(0, 0, 0, 0.2),
+                0 0 20px rgba(202, 167, 106, 0.4);
+            letter-spacing: 4px;
+        }
+
+        .vip-button::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border: 2px solid #caa76a;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .vip-button:hover::before {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 180px; }
+        }
+
+        @keyframes patternMove {
+            from { background-position: 0 0; }
+            to { background-position: 200px 200px; }
+        }
+
+        @media (max-width: 1200px) {
+            .vip-section {
+                margin: 0 20px;
+                padding: 0;
+            }
+
+            .vip-content {
+                padding: 100px 30px;
+                max-width: 1200px;
+            }
+
+            .vip-title {
+                font-size: 58px;
+            }
+
+            .vip-description {
+                font-size: 22px;
+                padding: 0 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .vip-section {
+                margin: 0 20px;
+                padding: 0;
+            }
+
+            .vip-content {
+                padding: 60px 20px;
+                margin: 0 10px;
+            }
+
+            .vip-frame {
+                margin: 20px;
+            }
+
+            .vip-frame::before,
+            .vip-frame::after {
+                width: 30px;
+                height: 30px;
+            }
+
+            .vip-title {
+                font-size: 42px;
+                margin: 0 0 25px;
+                padding: 0 30px;
+            }
+
+            .vip-title::before,
+            .vip-title::after {
+                width: 30px;
+                height: 30px;
+            }
+
+            .vip-title::before {
+                top: -10px;
+                left: 0;
+            }
+
+            .vip-title::after {
+                bottom: -10px;
+                right: 0;
+            }
+
+            .vip-divider {
+                margin: 30px auto;
+            }
+
+            .vip-description {
+                font-size: 20px;
+                line-height: 1.6;
+                margin: 0 auto 40px;
+                padding: 0 20px;
+            }
+
+            .vip-button {
+                padding: 16px 32px;
+                font-size: 14px;
+                width: auto;
+                max-width: 280px;
+                margin-top: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .vip-section {
+                margin: 0 15px;
+                padding: 0;
+            }
+
+            .vip-content {
+                padding: 40px 20px;
+                margin: 0 10px;
+            }
+
+            .vip-frame {
+                margin: 15px;
+            }
+
+            .vip-frame::before,
+            .vip-frame::after {
+                width: 25px;
+                height: 25px;
+            }
+
+            .vip-title {
+                font-size: 32px;
+                margin: 0 0 20px;
+                padding: 0 20px;
+            }
+
+            .vip-title::before,
+            .vip-title::after {
+                width: 25px;
+                height: 25px;
+            }
+
+            .vip-title::before {
+                top: -8px;
+                left: 0;
+            }
+
+            .vip-title::after {
+                bottom: -8px;
+                right: 0;
+            }
+
+            .vip-divider {
+                margin: 25px auto;
+            }
+
+            .vip-description {
+                font-size: 18px;
+                line-height: 1.5;
+                margin: 0 auto 35px;
+                padding: 0 15px;
+            }
+
+            .vip-button {
+                padding: 14px 28px;
+                font-size: 13px;
+                width: 100%;
+                max-width: none;
+                margin-top: 25px;
+            }
+        }
+
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+        }
+
+        .fade-in-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <section class="vip-section">
+        <div class="vip-overlay"></div>
+        <div class="vip-pattern"></div>
+        <img src="https://thebourbonmd.com/wp-content/uploads/2025/04/MD-VIP.jpg" alt="VIP Experience" class="vip-background">
+        <div class="vip-content">
+            <div class="vip-frame"></div>
+            <h2 class="vip-title">For Those Who Know<br>the Difference</h2>
+            <div class="vip-divider"></div>
+            <p class="vip-description">Join an exclusive circle where exceptional spirits, premium cigars, and refined company converge. Our VIP membership offers privileged access to rare selections, private events, and personalized experiences crafted for the discerning connoisseur.</p>
+            <a href="/request-access" class="vip-button">Request Access</a>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                        entry.target.classList.remove('fade-out');
+                    } else {
+                        entry.target.classList.remove('fade-in');
+                        entry.target.classList.add('fade-out');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '50px'
+            });
+
+            const vipContent = document.querySelector('.vip-content');
+            const vipTitle = document.querySelector('.vip-title');
+            const vipDescription = document.querySelector('.vip-description');
+            const vipButton = document.querySelector('.vip-button');
+
+            if (vipContent) observer.observe(vipContent);
+            if (vipTitle) observer.observe(vipTitle);
+            if (vipDescription) observer.observe(vipDescription);
+            if (vipButton) observer.observe(vipButton);
+        });
+    </script>
+</body>
+</html> 

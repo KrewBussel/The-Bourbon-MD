@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1c1c1c;
+        }
+
+        .menu-header-section {
+            background-color: #1c1c1c;
+            padding: 140px 0 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-header-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #1c1c1c;
+            z-index: 1;
+        }
+
+        .menu-header-pattern {
+            display: none;
+        }
+
+        .menu-header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 40px;
+            text-align: center;
+        }
+
+        .menu-header-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 72px;
+            color: #e3d6c4;
+            margin: 0;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+
+        .menu-header-title.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .menu-header-title.fade-out {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .menu-header-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 2px;
+            background: #caa76a;
+        }
+
+        .menu-header-accent {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            color: #caa76a;
+            margin: 25px 0 0;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+
+        .menu-header-accent.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .menu-header-accent.fade-out {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+        }
+
+        .fade-in-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .menu-header-section {
+                padding: 120px 0 40px;
+            }
+            
+            .menu-header-content {
+                padding: 0 20px;
+            }
+            
+            .menu-header-title {
+                font-size: 54px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .menu-header-section {
+                padding: 100px 0 30px;
+            }
+            
+            .menu-header-title {
+                font-size: 42px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="menu-header-section">
+        <div class="menu-header-overlay"></div>
+        <div class="menu-header-pattern"></div>
+        <div class="menu-header-content">
+            <h1 class="menu-header-title">Our Selections</h1>
+            <p class="menu-header-accent">━ Est. 2025 ━</p>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                        entry.target.classList.remove('fade-out');
+                    } else {
+                        entry.target.classList.remove('fade-in');
+                        entry.target.classList.add('fade-out');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '50px'
+            });
+
+            const headerTitle = document.querySelector('.menu-header-title');
+            const headerAccent = document.querySelector('.menu-header-accent');
+
+            if (headerTitle) observer.observe(headerTitle);
+            if (headerAccent) observer.observe(headerAccent);
+        });
+    </script>
+</body>
+</html> 

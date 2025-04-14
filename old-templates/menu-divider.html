@@ -1,0 +1,147 @@
+<div class="section-divider-wrapper-diamond">
+    <div class="section-divider-line"></div>
+    <div class="divider-diamond"></div>
+    <div class="section-divider-line"></div>
+</div>
+
+<style>
+.section-divider-wrapper-diamond {
+    width: 100%;
+    padding: 60px 0;
+    background: linear-gradient(to bottom, 
+        #1c1c1c,
+        #151515,
+        #1c1c1c
+    );
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s ease;
+}
+
+.section-divider-wrapper-diamond.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.section-divider-wrapper-diamond.fade-out {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.section-divider-wrapper-diamond::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right,
+        transparent,
+        rgba(202, 167, 106, 0.2),
+        rgba(202, 167, 106, 0.4),
+        rgba(202, 167, 106, 0.2),
+        transparent
+    );
+}
+
+.section-divider-wrapper-diamond::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right,
+        transparent,
+        rgba(202, 167, 106, 0.2),
+        rgba(202, 167, 106, 0.4),
+        rgba(202, 167, 106, 0.2),
+        transparent
+    );
+}
+
+.section-divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right,
+        transparent,
+        rgba(202, 167, 106, 0.2),
+        rgba(202, 167, 106, 0.4),
+        #caa76a,
+        rgba(202, 167, 106, 0.4),
+        rgba(202, 167, 106, 0.2),
+        transparent
+    );
+    border-radius: 2px;
+    box-shadow: 0 0 4px rgba(202, 167, 106, 0.2);
+    opacity: 0;
+    transform: scaleX(0);
+    transition: all 0.8s ease;
+    background-color: transparent;
+}
+
+.section-divider-line.fade-in {
+    opacity: 1;
+    transform: scaleX(1);
+}
+
+.section-divider-line.fade-out {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.divider-diamond {
+    width: 12px;
+    height: 12px;
+    background-color: #caa76a;
+    transform: rotate(45deg);
+    box-shadow: 0 0 6px rgba(202, 167, 106, 0.5);
+    opacity: 0;
+    transform: rotate(45deg) scale(0);
+    transition: all 0.8s ease;
+    background-color: #caa76a;
+}
+
+.divider-diamond.fade-in {
+    opacity: 1;
+    transform: rotate(45deg) scale(1);
+}
+
+.divider-diamond.fade-out {
+    opacity: 0;
+    transform: rotate(45deg) scale(0);
+}
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                    entry.target.classList.remove('fade-out');
+                } else {
+                    entry.target.classList.remove('fade-in');
+                    entry.target.classList.add('fade-out');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '50px'
+        });
+
+        const wrapper = document.querySelector('.section-divider-wrapper-diamond');
+        const lines = document.querySelectorAll('.section-divider-line');
+        const diamond = document.querySelector('.divider-diamond');
+
+        if (wrapper) observer.observe(wrapper);
+        lines.forEach(line => observer.observe(line));
+        if (diamond) observer.observe(diamond);
+    });
+</script>

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en" style="margin: 0; padding: 0;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            background-color: #1c1c1c;
+            min-height: 100%;
+            display: block;
+        }
+
+        .food-menu-section {
+            margin-top: 0;
+            padding-top: 40px;
+            background-color: #1c1c1c;
+            padding-bottom: 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .food-menu-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #1c1c1c;
+            z-index: 1;
+        }
+
+        .food-menu-pattern {
+            display: none;
+        }
+
+        .food-menu-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 40px 0;
+        }
+
+        .food-menu-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            color: #e3d6c4;
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+
+        .food-menu-title.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .food-menu-title.fade-out {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .food-menu-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent,
+                #caa76a,
+                #e3d6c4,
+                #caa76a,
+                transparent
+            );
+        }
+
+        .food-menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+
+        .food-menu-grid.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .food-menu-grid.fade-out {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .food-menu-item {
+            background: rgba(28, 28, 28, 0.6);
+            border: 1px solid rgba(202, 167, 106, 0.2);
+            padding: 30px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .food-menu-item:hover {
+            transform: translateY(-5px);
+            border-color: rgba(202, 167, 106, 0.4);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .food-menu-item::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid rgba(202, 167, 106, 0.1);
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .food-menu-item:hover::before {
+            border-color: rgba(202, 167, 106, 0.2);
+        }
+
+        .food-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .food-item-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: #e3d6c4;
+            margin: 0;
+            flex-grow: 1;
+            padding-right: 20px;
+        }
+
+        .food-item-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            color: #caa76a;
+            margin: 0;
+            white-space: nowrap;
+        }
+
+        .food-item-description {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: #a8a8a8;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .food-menu-section {
+                padding: 40px 0 80px;
+            }
+
+            .food-menu-content {
+                padding: 30px 20px 0;
+            }
+
+            .food-menu-title {
+                font-size: 36px;
+                margin-bottom: 50px;
+            }
+
+            .food-menu-grid {
+                gap: 30px;
+            }
+
+            .food-menu-item {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .food-menu-section {
+                padding: 30px 0 60px;
+            }
+
+            .food-menu-title {
+                font-size: 32px;
+                margin-bottom: 40px;
+            }
+
+            .food-menu-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .food-menu-item {
+                padding: 20px;
+            }
+
+            .food-item-name {
+                font-size: 20px;
+            }
+
+            .food-item-price {
+                font-size: 18px;
+            }
+
+            .food-menu-content {
+                padding: 20px 20px 0;
+            }
+        }
+
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+        }
+
+        .fade-in-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <section class="food-menu-section">
+        <div class="food-menu-overlay"></div>
+        <div class="food-menu-pattern"></div>
+        <div class="food-menu-content">
+            <h2 class="food-menu-title">Small Plates & Sharables</h2>
+            <div class="food-menu-grid">
+                <div class="food-menu-item">
+                    <div class="food-item-header">
+                        <h3 class="food-item-name">Cheeseball Trio</h3>
+                        <p class="food-item-price">$15</p>
+                    </div>
+                    <p class="food-item-description">Three handcrafted cheeseballs served with gourmet crackers.</p>
+                </div>
+
+                <div class="food-menu-item">
+                    <div class="food-item-header">
+                        <h3 class="food-item-name">Charcuterie Board</h3>
+                        <p class="food-item-price">$19</p>
+                    </div>
+                    <p class="food-item-description">Selection of cured meats, artisan cheeses, and seasonal accompaniments.</p>
+                </div>
+
+                <div class="food-menu-item">
+                    <div class="food-item-header">
+                        <h3 class="food-item-name">Caprese</h3>
+                        <p class="food-item-price">$13</p>
+                    </div>
+                    <p class="food-item-description">Fresh mozzarella, heirloom tomatoes, and basil drizzled with balsamic glaze.</p>
+                </div>
+
+                <div class="food-menu-item">
+                    <div class="food-item-header">
+                        <h3 class="food-item-name">Rarebreed</h3>
+                        <p class="food-item-price">$13</p>
+                    </div>
+                    <p class="food-item-description">Premium smoked sausage bites with bourbon glaze.</p>
+                </div>
+
+                <div class="food-menu-item">
+                    <div class="food-item-header">
+                        <h3 class="food-item-name">Whistlepig</h3>
+                        <p class="food-item-price">$12</p>
+                    </div>
+                    <p class="food-item-description">Mini pork sliders slow-cooked with Whistlepig bourbon BBQ sauce.</p>
+                </div>
+
+                <div class="food-menu-item">
+                    <div class="food-item-header">
+                        <h3 class="food-item-name">Tableside S'mores</h3>
+                        <p class="food-item-price">$7/$13</p>
+                    </div>
+                    <p class="food-item-description">Classic marshmallow, chocolate, and graham cracker setup at your table.</p>
+                </div>
+
+                <div class="food-menu-item">
+                    <div class="food-item-header">
+                        <h3 class="food-item-name">Maple Pecan Cheeseball</h3>
+                        <p class="food-item-price">$8</p>
+                    </div>
+                    <p class="food-item-description">Sweet and nutty spreadable delight with warm maple notes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                        entry.target.classList.remove('fade-out');
+                    } else {
+                        entry.target.classList.remove('fade-in');
+                        entry.target.classList.add('fade-out');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '50px'
+            });
+
+            const menuTitle = document.querySelector('.food-menu-title');
+            const menuGrid = document.querySelector('.food-menu-grid');
+
+            if (menuTitle) observer.observe(menuTitle);
+            if (menuGrid) observer.observe(menuGrid);
+        });
+    </script>
+</body>
+</html> 

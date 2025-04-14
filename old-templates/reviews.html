@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .reviews-section {
+            background: linear-gradient(to bottom, #1c1c1c, #252525, #1c1c1c);
+            padding: 100px 0;
+            color: #e3d6c4;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reviews-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(45deg, #1c1c1c 25%, transparent 25%),
+                linear-gradient(-45deg, #1c1c1c 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #1c1c1c 75%),
+                linear-gradient(-45deg, transparent 75%, #1c1c1c 75%);
+            background-size: 20px 20px;
+            opacity: 0.03;
+            pointer-events: none;
+        }
+
+        .reviews-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .reviews-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            margin-bottom: 60px;
+            color: #e3d6c4;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.8s ease;
+        }
+
+        .reviews-title.fade-in {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reviews-title.fade-out {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .review-carousel {
+            position: relative;
+            padding: 0 60px;
+            opacity: 0;
+            transform: translateX(20px);
+            transition: all 0.8s ease 0.3s;
+        }
+
+        .review-carousel.fade-in {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .review-carousel.fade-out {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+
+        .review-slide {
+            display: none;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .review-slide.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .review-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(28, 28, 28, 0.6);
+            padding: 40px;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .review-content::before,
+        .review-content::after {
+            display: none;
+        }
+
+        .review-stars {
+            color: #caa76a;
+            font-size: 24px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 2px 4px rgba(202, 167, 106, 0.2));
+        }
+
+        .review-text {
+            font-size: 22px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            font-style: italic;
+            color: #e3d6c4;
+            position: relative;
+            z-index: 1;
+        }
+
+        .review-author {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: #caa76a;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .review-date {
+            font-size: 16px;
+            color: #a19589;
+            margin-bottom: 20px;
+        }
+
+        .review-nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(202, 167, 106, 0.1);
+            border: 1px solid rgba(202, 167, 106, 0.2);
+            color: #caa76a;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 0;
+            transition: all 0.3s ease;
+            z-index: 2;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: visible;
+            outline: none;
+        }
+
+        .review-nav-button:hover,
+        .review-nav-button:focus {
+            background: rgba(202, 167, 106, 0.3);
+            color: #e3d6c4;
+            transform: translateY(-50%) scale(1.1);
+            border-color: #e3d6c4;
+        }
+
+        .review-nav-button:active {
+            background: rgba(202, 167, 106, 0.4);
+            transform: translateY(-50%) scale(0.95);
+        }
+
+        .review-nav-button.prev {
+            left: 0;
+        }
+
+        .review-nav-button.next {
+            right: 0;
+        }
+
+        .review-indicators {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+            gap: 12px;
+            padding-bottom: 10px;
+            overflow: visible;
+        }
+
+        .review-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(202, 167, 106, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            overflow: visible;
+        }
+
+        .review-indicator.active {
+            background-color: #caa76a;
+            transform: scale(1.2);
+        }
+
+        .review-indicator:hover {
+            background-color: rgba(202, 167, 106, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .reviews-section {
+                padding: 80px 0;
+            }
+
+            .review-content {
+                padding: 30px;
+            }
+
+            .review-text {
+                font-size: 18px;
+            }
+
+            .review-content::before,
+            .review-content::after {
+                font-size: 80px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .reviews-section {
+                padding: 40px 0;
+            }
+
+            .review-carousel {
+                padding: 0 30px;
+            }
+
+            .review-text {
+                font-size: 16px;
+            }
+
+            .review-author {
+                font-size: 18px;
+            }
+
+            .review-nav-button {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="reviews-section">
+        <div class="reviews-container">
+            <h2 class="reviews-title">What Our Guests Say</h2>
+            <div class="review-carousel">
+                <button class="review-nav-button prev">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="review-nav-button next">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="review-slide">
+                    <div class="review-content">
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="review-text">"I cannot rave enough about this place. Such a fantastic addition to the community. Excellent service, the food is unique and different from anything else in Bluffton, and the whiskey selection is fantastic. This place feels like an upscale escape, a place you can relax and just enjoy yourself."</p>
+                        <h3 class="review-author">Collin C</h3>
+                        <p class="review-date">March 28, 2025</p>
+                    </div>
+                </div>
+
+                <div class="review-slide">
+                    <div class="review-content">
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="review-text">"We stopped into the Bourbon MD for dinner and had a great time. The menu has some great things to try on it. I got a panini and the maple pecan cheese ball. The s'mores for dessert was really an experience! The service was friendly and attentive and the atmosphere is classy and comfortable. Will definitely be back!"</p>
+                        <h3 class="review-author">Cody W</h3>
+                        <p class="review-date">March 26, 2025</p>
+                    </div>
+                </div>
+
+                <div class="review-slide">
+                    <div class="review-content">
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="review-text">"Amazing selection of bourbons and cigars. Delish food menu - caprese is to die for!"</p>
+                        <h3 class="review-author">Kelli H</h3>
+                        <p class="review-date">March 16, 2025</p>
+                    </div>
+                </div>
+
+                <div class="review-slide active">
+                    <div class="review-content">
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="review-text">"The vibe as a whole was outstanding!! Great drinks, food, and the atmosphere. Its a must go to place!"</p>
+                        <h3 class="review-author">Shelly R</h3>
+                        <p class="review-date">March 20, 2025</p>
+                    </div>
+                </div>
+
+                <div class="review-indicators">
+                    <span class="review-indicator active"></span>
+                    <span class="review-indicator"></span>
+                    <span class="review-indicator"></span>
+                    <span class="review-indicator"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Intersection Observer for fade-in animations
+        const reviewsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                    entry.target.classList.remove('fade-out');
+                } else {
+                    entry.target.classList.remove('fade-in');
+                    entry.target.classList.add('fade-out');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px'
+        });
+
+        document.querySelectorAll('.reviews-title, .review-carousel').forEach((el) => {
+            reviewsObserver.observe(el);
+        });
+
+        // Carousel functionality
+        const slides = document.querySelectorAll('.review-slide');
+        const indicators = document.querySelectorAll('.review-indicator');
+        const prevButton = document.querySelector('.prev');
+        const nextButton = document.querySelector('.next');
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+                slide.style.opacity = '0';
+            });
+            indicators.forEach(indicator => {
+                indicator.classList.remove('active');
+            });
+
+            slides[index].classList.add('active');
+            slides[index].style.opacity = '1';
+            indicators[index].classList.add('active');
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        nextButton.addEventListener('click', nextSlide);
+        prevButton.addEventListener('click', prevSlide);
+
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                currentSlide = index;
+                showSlide(currentSlide);
+            });
+        });
+
+        // Optional: Auto-advance slides every 5 seconds
+        // setInterval(nextSlide, 5000);
+    </script>
+</body>
+</html> 

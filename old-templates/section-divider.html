@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .divider-section {
+            padding: 60px 0;
+            background: #1c1c1c;
+            position: relative;
+            overflow: hidden;
+            display: none;
+        }
+
+        .divider-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px;
+        }
+
+        .divider-line {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, 
+                transparent,
+                rgba(202, 167, 106, 0.1),
+                rgba(202, 167, 106, 0.3),
+                #caa76a,
+                rgba(202, 167, 106, 0.3),
+                rgba(202, 167, 106, 0.1),
+                transparent
+            );
+            position: relative;
+        }
+
+        .divider-emblem {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: #1c1c1c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .divider-emblem::before {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 1px solid #caa76a;
+            transform: rotate(45deg);
+            opacity: 0.6;
+        }
+
+        .divider-emblem::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 1px solid #caa76a;
+            transform: rotate(45deg);
+        }
+
+        @media (max-width: 768px) {
+            .divider-section {
+                padding: 40px 0;
+            }
+
+            .divider-emblem {
+                width: 50px;
+                height: 50px;
+            }
+
+            .divider-emblem::before {
+                width: 35px;
+                height: 35px;
+            }
+
+            .divider-emblem::after {
+                width: 25px;
+                height: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .divider-section {
+                padding: 30px 0;
+            }
+
+            .divider-emblem {
+                width: 40px;
+                height: 40px;
+            }
+
+            .divider-emblem::before {
+                width: 30px;
+                height: 30px;
+            }
+
+            .divider-emblem::after {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .divider-section {
+                display: block;
+                padding: 40px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="divider-section">
+        <div class="divider-container">
+            <div class="divider-line">
+                <div class="divider-emblem"></div>
+            </div>
+        </div>
+    </section>
+</body>
+</html> 

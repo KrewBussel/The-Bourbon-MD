@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .cigar-section {
+      display: flex;
+      width: 100%;
+      height: 80vh;
+      max-height: 800px;
+      background-color: #1c1c1c;
+      overflow: hidden;
+      flex-wrap: wrap;
+    }
+
+    .cigar-text {
+      flex: 1 1 40%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 60px 0 120px;
+      z-index: 2;
+      color: #e3d6c4;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.8s ease;
+    }
+
+    .cigar-text.fade-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .cigar-text.fade-out {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .cigar-text h2 {
+      font-size: 64px;
+      margin: 0;
+      font-weight: 400;
+      line-height: 1.1;
+    }
+
+    .divider {
+      width: 100px;
+      height: 2px;
+      background-color: #caa76a;
+      margin: 24px 0;
+    }
+
+    .subtitle {
+      font-size: 22px; /* REDUCED */
+      color: #caa76a;
+      margin-bottom: 32px;
+      max-width: 450px;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background-color: #f4ede4;
+      color: #1c1c1c;
+      padding: 16px 32px;
+      text-decoration: none;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 14px;
+      letter-spacing: 1px;
+      transition: 0.3s ease;
+      border-radius: 2px;
+      width: fit-content;
+      text-align: center;
+    }
+
+    .cta-button:hover {
+      background-color: #caa76a;
+    }
+
+    .cigar-image-container {
+      flex: 1 1 60%;
+      position: relative;
+      height: 100%;
+      opacity: 0;
+      transform: translateX(20px);
+      transition: all 0.8s ease;
+    }
+
+    .cigar-image-container.fade-in {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .cigar-image-container.fade-out {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+
+    .cigar-image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: right;
+      display: block;
+    }
+
+    .cigar-image-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 40%;
+      height: 100%;
+      background: linear-gradient(to right, #1c1c1c, transparent);
+      z-index: 1;
+    }
+
+    @media (max-width: 1200px) {
+      .cigar-section {
+        height: 70vh;
+        max-height: 600px;
+      }
+
+      .cigar-text {
+        padding: 0 40px 0 80px;
+      }
+
+      .cigar-text h2 {
+        font-size: 56px;
+      }
+
+      .subtitle {
+        font-size: 20px;
+        margin-bottom: 28px;
+      }
+
+      .divider {
+        margin: 20px 0;
+      }
+    }
+
+    @media (max-width: 992px) {
+      .cigar-section {
+        flex-direction: column;
+        height: auto;
+        max-height: none;
+      }
+
+      .cigar-text {
+        flex: 1 1 auto;
+        padding: 60px 20px;
+        text-align: center;
+        align-items: center;
+      }
+
+      .cigar-text h2 {
+        font-size: 48px;
+      }
+
+      .subtitle {
+        font-size: 20px;
+      }
+
+      .cigar-image-container {
+        flex: 1 1 auto;
+        height: 60vh;
+      }
+
+      .cigar-image-container::before {
+        width: 100%;
+        height: 40%;
+        background: linear-gradient(to bottom, #1c1c1c, transparent);
+      }
+
+      .cta-button {
+        width: auto;
+        min-width: 200px;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .cigar-text h2 {
+        font-size: 36px;
+      }
+
+      .subtitle {
+        font-size: 18px;
+      }
+
+      .cta-button {
+        padding: 12px 24px;
+        font-size: 13px;
+      }
+
+      .cigar-image-container {
+        height: 50vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="cigar-section">
+    <div class="cigar-text">
+      <h2>Cigar Selection</h2>
+      <div class="divider"></div>
+      <p class="subtitle">Premium cigars for those who like to take their time</p>
+      <a href="/cigar-selection" class="cta-button">View Selection</a>
+    </div>
+    <div class="cigar-image-container">
+      <img src="https://thebourbonmd.com/wp-content/uploads/2025/04/MD-CIGARS.jpg" alt="Premium Cigar Selection">
+    </div>
+  </section>
+
+  <script>
+    const cigarObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('fade-in');
+                entry.target.classList.remove('fade-out');
+            } else {
+                entry.target.classList.remove('fade-in');
+                entry.target.classList.add('fade-out');
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px'
+    });
+
+    document.querySelectorAll('.cigar-text, .cigar-image-container').forEach((el) => {
+        cigarObserver.observe(el);
+    });
+  </script>
+</body>
+</html>

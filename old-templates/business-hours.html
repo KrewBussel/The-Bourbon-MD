@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .hours-section {
+            background-color: #1c1c1c;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hours-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(to bottom,
+                    rgba(28, 28, 28, 1) 0%,
+                    rgba(28, 28, 28, 0.85) 40%,
+                    rgba(28, 28, 28, 0.85) 60%,
+                    rgba(28, 28, 28, 1) 100%
+                ),
+                radial-gradient(
+                    ellipse at top,
+                    rgba(202, 167, 106, 0.15) 0%,
+                    rgba(202, 167, 106, 0.05) 25%,
+                    transparent 50%
+                ),
+                radial-gradient(
+                    ellipse at bottom,
+                    rgba(202, 167, 106, 0.15) 0%,
+                    rgba(202, 167, 106, 0.05) 25%,
+                    transparent 50%
+                );
+            z-index: 1;
+        }
+
+        .hours-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            background: 
+                repeating-linear-gradient(
+                    -45deg,
+                    #caa76a,
+                    #caa76a 1px,
+                    transparent 1px,
+                    transparent 10px
+                );
+            z-index: 1;
+        }
+
+        .hours-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            text-align: center;
+        }
+
+        .hours-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            color: #e3d6c4;
+            margin-bottom: 60px;
+            position: relative;
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+
+        .hours-title.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hours-title.fade-out {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .hours-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent,
+                #caa76a,
+                #e3d6c4,
+                #caa76a,
+                transparent
+            );
+            animation: expandWidth 1s ease-out forwards 0.5s;
+        }
+
+        .hours-grid {
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+
+        .hours-grid.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hours-grid.fade-out {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .hours-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(202, 167, 106, 0.2);
+        }
+
+        .hours-row:last-child {
+            border-bottom: none;
+        }
+
+        .day-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: #e3d6c4;
+        }
+
+        .time-slot {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: #caa76a;
+        }
+
+        .hours-note {
+            margin-top: 60px;
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            color: #caa76a;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+
+        .hours-note.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hours-note.fade-out {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .hours-note a {
+            color: #e3d6c4;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(202, 167, 106, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .hours-note a:hover {
+            color: #caa76a;
+            border-bottom-color: #caa76a;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 80px; }
+        }
+
+        @keyframes patternMove {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 200px 200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hours-section {
+                padding: 80px 0;
+            }
+
+            .hours-content {
+                padding: 0 20px;
+            }
+
+            .hours-title {
+                font-size: 36px;
+                margin-bottom: 40px;
+            }
+
+            .hours-grid {
+                max-width: 100%;
+                background: rgba(28, 28, 28, 0.4);
+                border: 1px solid rgba(202, 167, 106, 0.2);
+                border-radius: 4px;
+                padding: 20px;
+                margin: 0 10px;
+            }
+
+            .hours-row {
+                border-bottom: 1px solid rgba(202, 167, 106, 0.1);
+            }
+
+            .hours-row:last-child {
+                border-bottom: none;
+            }
+
+            .day-name {
+                font-size: 20px;
+            }
+
+            .time-slot {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hours-section {
+                padding: 60px 0;
+            }
+
+            .hours-content {
+                padding: 0 20px;
+            }
+
+            .hours-grid {
+                max-width: 100%;
+                background: rgba(28, 28, 28, 0.4);
+                border: 1px solid rgba(202, 167, 106, 0.2);
+                border-radius: 4px;
+                padding: 20px;
+                margin: 0 10px;
+            }
+
+            .hours-row {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px 0;
+                border-bottom: 1px solid rgba(202, 167, 106, 0.1);
+            }
+
+            .hours-row:last-child {
+                border-bottom: none;
+            }
+
+            .day-name {
+                font-size: 20px;
+                margin-bottom: 5px;
+                color: #e3d6c4;
+            }
+
+            .time-slot {
+                font-size: 18px;
+                color: #caa76a;
+            }
+
+            .hours-title {
+                font-size: 32px;
+                margin-bottom: 30px;
+            }
+
+            .hours-note {
+                margin-top: 40px;
+                font-size: 16px;
+                padding: 0 20px;
+            }
+        }
+
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .fade-in-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-out {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+    </style>
+</head>
+<body>
+    <section class="hours-section">
+        <div class="hours-overlay"></div>
+        <div class="hours-pattern"></div>
+        <div class="hours-content">
+            <h2 class="hours-title">Business Hours</h2>
+            <div class="hours-grid">
+                <div class="hours-row">
+                    <div class="day-name">Monday</div>
+                    <div class="time-slot">3:00pm – 9:00pm</div>
+                </div>
+                <div class="hours-row">
+                    <div class="day-name">Tuesday</div>
+                    <div class="time-slot">Closed</div>
+                </div>
+                <div class="hours-row">
+                    <div class="day-name">Wednesday</div>
+                    <div class="time-slot">Closed</div>
+                </div>
+                <div class="hours-row">
+                    <div class="day-name">Thursday</div>
+                    <div class="time-slot">3:00pm – 10:00pm</div>
+                </div>
+                <div class="hours-row">
+                    <div class="day-name">Friday</div>
+                    <div class="time-slot">12:00pm – 11:00pm</div>
+                </div>
+                <div class="hours-row">
+                    <div class="day-name">Saturday</div>
+                    <div class="time-slot">12:00pm – 11:00pm</div>
+                </div>
+                <div class="hours-row">
+                    <div class="day-name">Sunday</div>
+                    <div class="time-slot">12:00pm – 10:00pm</div>
+                </div>
+            </div>
+            <p class="hours-note">Check The Bourbon MD <a href="https://www.instagram.com/thebourbonmd" target="_blank">Instagram</a> or <a href="https://www.facebook.com/thebourbonmd" target="_blank">Facebook</a> page for special hours!</p>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                        entry.target.classList.remove('fade-out');
+                    } else {
+                        entry.target.classList.remove('fade-in');
+                        entry.target.classList.add('fade-out');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '50px'
+            });
+
+            const hoursTitle = document.querySelector('.hours-title');
+            const hoursGrid = document.querySelector('.hours-grid');
+            const hoursNote = document.querySelector('.hours-note');
+
+            if (hoursTitle) observer.observe(hoursTitle);
+            if (hoursGrid) observer.observe(hoursGrid);
+            if (hoursNote) observer.observe(hoursNote);
+        });
+    </script>
+</body>
+</html> 
