@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIP Lounge - Bourbon Experience</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            background-color: #1c1c1c;
+        }
+
+        body {
+            font-family: 'Playfair Display', serif;
+            color: #e3d6c4;
+            line-height: 1.6;
+        }
+
+        .vip-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            background-color: #1c1c1c;
+        }
+
+        .vip-content {
+            max-width: 1200px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            width: 100%;
+        }
+
+        .vip-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .vip-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: #caa76a;
+            box-shadow: 0 0 10px #caa76a;
+        }
+
+        .vip-description {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            opacity: 0.9;
+            letter-spacing: 0.3px;
+        }
+
+        .vip-button {
+            background: transparent;
+            color: #e3d6c4;
+            border: 2px solid #caa76a;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            font-family: inherit;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .vip-button:hover {
+            background: #caa76a;
+            color: #1c1c1c;
+            box-shadow: 0 0 20px rgba(202, 167, 106, 0.5);
+        }
+
+        .vip-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #caa76a;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+            z-index: -1;
+        }
+
+        .vip-button:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .vip-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(202, 167, 106, 0.1) 0%, rgba(28, 28, 28, 0) 70%);
+            pointer-events: none;
+        }
+
+        /* Small devices (phones, 576px and down) */
+        @media (max-width: 576px) {
+            .vip-section {
+                padding: 1.5rem;
+            }
+
+            .vip-title {
+                font-size: 2rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .vip-description {
+                font-size: 0.95rem;
+                padding: 0 0.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .vip-button {
+                padding: 0.8rem 2rem;
+                font-size: 0.95rem;
+            }
+        }
+
+        /* Medium devices (tablets, 768px and down) */
+        @media (max-width: 768px) {
+            .vip-section {
+                padding: 2rem;
+            }
+
+            .vip-title {
+                font-size: 2.5rem;
+            }
+
+            .vip-description {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+
+            .vip-button {
+                padding: 0.9rem 2.2rem;
+                font-size: 1rem;
+            }
+        }
+
+        /* Large devices (desktops, 992px and down) */
+        @media (max-width: 992px) {
+            .vip-content {
+                max-width: 90%;
+            }
+        }
+
+        /* Extra large devices (large desktops, 1200px and down) */
+        @media (max-width: 1200px) {
+            .vip-content {
+                max-width: 95%;
+            }
+        }
+
+        /* Landscape orientation for mobile devices */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .vip-section {
+                padding: 1rem;
+            }
+
+            .vip-title {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+
+            .vip-description {
+                font-size: 0.9rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .vip-button {
+                padding: 0.7rem 1.8rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="vip-section">
+        <div class="vip-background"></div>
+        <div class="vip-content">
+            <h1 class="vip-title">For Those Who Know the Difference</h1>
+            <p class="vip-description">
+                Join an exclusive circle where exceptional spirits, premium cigars, and refined company converge. 
+                Our VIP membership offers privileged access to rare selections, private events, and personalized 
+                experiences crafted for the discerning connoisseur.
+            </p>
+            <button class="vip-button">Request Access</button>
+        </div>
+    </section>
+</body>
+</html>

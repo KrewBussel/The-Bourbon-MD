@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #1c1c1c;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .socials-section {
+            padding: 100px 0;
+            background: linear-gradient(180deg, 
+                #242424 0%,
+                #201f1f 20%,
+                #1e1e1e 40%,
+                #1d1d1d 60%,
+                #1c1c1c 80%,
+                #1c1c1c 100%
+            );
+            position: relative;
+            overflow: hidden;
+        }
+
+        .socials-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, 
+                    rgba(202, 167, 106, 0.15) 0%,
+                    transparent 40%
+                ),
+                radial-gradient(circle at 80% 80%, 
+                    rgba(202, 167, 106, 0.15) 0%,
+                    transparent 40%
+                );
+            pointer-events: none;
+            opacity: 0.8;
+            mix-blend-mode: soft-light;
+        }
+
+        .socials-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .socials-title {
+            font-size: 48px;
+            color: #e3d6c4;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+
+        .socials-title.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .socials-slogan {
+            font-size: 24px;
+            color: #caa76a;
+            margin-bottom: 60px;
+            font-style: italic;
+            letter-spacing: 1px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease 0.2s;
+        }
+
+        .socials-slogan.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .socials-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent,
+                #caa76a,
+                #e3d6c4,
+                #caa76a,
+                transparent
+            );
+            margin: 20px auto;
+        }
+
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease 0.4s;
+        }
+
+        .social-buttons.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .social-button {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(28, 28, 28, 0.8);
+            border: 2px solid #caa76a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #e3d6c4;
+            font-size: 40px;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .social-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                transparent,
+                rgba(202, 167, 106, 0.3),
+                transparent
+            );
+            transition: 0.6s;
+        }
+
+        .social-button:hover::before {
+            left: 100%;
+        }
+
+        .social-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            background-color: rgba(202, 167, 106, 0.1);
+        }
+
+        .social-button i {
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            .socials-section {
+                padding: 60px 0;
+            }
+
+            .socials-content {
+                padding: 0 20px;
+            }
+
+            .socials-title {
+                font-size: 36px;
+                margin-bottom: 15px;
+            }
+
+            .socials-slogan {
+                font-size: 20px;
+                margin-bottom: 40px;
+                padding: 0 20px;
+            }
+
+            .social-button {
+                width: 80px;
+                height: 80px;
+                font-size: 32px;
+            }
+
+            .social-buttons {
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .socials-section {
+                padding: 40px 0;
+                min-height: auto;
+            }
+
+            .socials-content {
+                padding: 0 15px;
+            }
+
+            .socials-title {
+                font-size: 28px;
+                margin-bottom: 12px;
+            }
+
+            .socials-title::after {
+                width: 60px;
+                margin: 15px auto;
+            }
+
+            .socials-slogan {
+                font-size: 16px;
+                margin-bottom: 30px;
+                padding: 0 10px;
+                line-height: 1.4;
+            }
+
+            .social-buttons {
+                gap: 25px;
+            }
+
+            .social-button {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+
+            .social-button:hover {
+                transform: translateY(-3px) scale(1.03);
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="socials-section">
+        <div class="socials-content">
+            <h2 class="socials-title">Join Our Journey</h2>
+            <p class="socials-slogan">Follow us for exclusive pours, behind-the-scenes moments, and special events</p>
+            <div class="social-buttons">
+                <a href="https://www.instagram.com/thebourbonmd" target="_blank" class="social-button">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.facebook.com/thebourbonmd" target="_blank" class="social-button">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '50px'
+            });
+
+            const elements = document.querySelectorAll('.socials-title, .socials-slogan, .social-buttons');
+            elements.forEach(element => observer.observe(element));
+        });
+    </script>
+</body>
+</html> 

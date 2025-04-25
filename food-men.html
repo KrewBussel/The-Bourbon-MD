@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en" style="margin: 0; padding: 0;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            background-color: #1c1c1c;
+            min-height: 100%;
+            display: block;
+        }
+
+        .menu-section {
+            margin-top: 0;
+            padding-top: 40px;
+            background-color: #1c1c1c;
+            padding-bottom: 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #1c1c1c;
+            z-index: 1;
+        }
+
+        .menu-pattern {
+            display: none;
+        }
+
+        .menu-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 40px 0;
+        }
+
+        .menu-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            color: #e3d6c4;
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+
+        .menu-title.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .menu-title.fade-out {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .menu-title::after {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent,
+                #caa76a,
+                #e3d6c4,
+                #caa76a,
+                transparent
+            );
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            max-width: 1000px;
+            margin: 100px auto 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+            justify-items: center;
+        }
+
+        .menu-grid.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .menu-grid.fade-out {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .menu-item {
+            background: rgba(28, 28, 28, 0.6);
+            border: 1px solid rgba(202, 167, 106, 0.2);
+            padding: 35px;
+            position: relative;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            border-color: rgba(202, 167, 106, 0.4);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid rgba(202, 167, 106, 0.1);
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover::before {
+            border-color: rgba(202, 167, 106, 0.2);
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .item-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: #e3d6c4;
+            margin: 0;
+            flex-grow: 1;
+            padding-right: 20px;
+        }
+
+        .item-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            color: #caa76a;
+            margin: 0;
+            white-space: nowrap;
+        }
+
+        .item-description {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: #a8a8a8;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .menu-item:last-child:nth-child(2n+1) {
+            grid-column: 1 / -1;
+            max-width: 400px;
+        }
+
+        @media (max-width: 1024px) {
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .menu-item:last-child:nth-child(2n+1) {
+                grid-column: 1 / -1;
+                max-width: 350px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-section {
+                padding: 40px 0 80px;
+            }
+
+            .menu-content {
+                padding: 30px 20px 0;
+            }
+
+            .menu-title {
+                font-size: 36px;
+                margin-bottom: 70px;
+            }
+
+            .menu-title::after {
+                bottom: -25px;
+            }
+
+            .menu-grid {
+                margin: 80px auto 0;
+                gap: 30px;
+            }
+
+            .menu-item {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .menu-section {
+                padding: 30px 0 60px;
+            }
+
+            .menu-title {
+                font-size: 32px;
+                margin-bottom: 60px;
+            }
+
+            .menu-title::after {
+                bottom: -20px;
+            }
+
+            .menu-grid {
+                margin: 60px auto 0;
+                gap: 25px;
+            }
+
+            .menu-item {
+                padding: 25px;
+            }
+
+            .item-name {
+                font-size: 20px;
+            }
+
+            .item-price {
+                font-size: 18px;
+            }
+
+            .menu-content {
+                padding: 20px 20px 0;
+            }
+        }
+
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+        }
+
+        .fade-in-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <section class="menu-section">
+        <div class="menu-overlay"></div>
+        <div class="menu-pattern"></div>
+        <div class="menu-content">
+            <h2 class="menu-title">Small Plates & Sharables</h2>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="item-header">
+                        <h3 class="item-name">Cheeseball Trio</h3>
+                        <p class="item-price">$15</p>
+                    </div>
+                    <p class="item-description">Three handcrafted cheeseballs served with gourmet crackers.</p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <h3 class="item-name">Chips & Queso</h3>
+                        <p class="item-price">$8</p>
+                    </div>
+                    <p class="item-description">Served with tortilla chips.</p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <h3 class="item-name">Charcuterie Board</h3>
+                        <p class="item-price">$19</p>
+                    </div>
+                    <p class="item-description">Assorted meats & crackers, cheeses, nuts, fruit, mini pickles, and olives. *Gluten free available</p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <h3 class="item-name">Caprese</h3>
+                        <p class="item-price">$13</p>
+                    </div>
+                    <p class="item-description">Panini on sourdough with sliced mozzarella, tomato, fresh mozzarella, fresh basil, balsamic glaze. Served with kettle chips. *Gluten free available</p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <h3 class="item-name">Rarebreed</h3>
+                        <p class="item-price">$13</p>
+                    </div>
+                    <p class="item-description">Panini on sourdough with smoked turkey, pepper jack, avocado mousse, tomato, pickled red onion, chipotle aioli. Served with kettle chips. *Gluten free available</p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <h3 class="item-name">Whistlepig</h3>
+                        <p class="item-price">$12</p>
+                    </div>
+                    <p class="item-description">Panini on sourdough with ham, gouda cheese, and dijonaise. Served with kettle chips. *Gluten free available</p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <h3 class="item-name">Tableside S'mores</h3>
+                        <p class="item-price">$7/13</p>
+                    </div>
+                    <p class="item-description">Enjoy s'mores right at your table. Marshmallows, Hershey's chocolate, and graham crackers served with an open flame mini firepit. Available for 2 or 4. *Gluten free option</p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <h3 class="item-name">Maple Pecan Cheeseball</h3>
+                        <p class="item-price">$8</p>
+                    </div>
+                    <p class="item-description">Sweet and nutty spreadable delight with warm maple notes.</p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="item-header">
+                        <h3 class="item-name">NY Style Cheesecake</h3>
+                        <p class="item-price">$9</p>
+                    </div>
+                    <p class="item-description">Slice of plain cheesecake drizzled with your choice of chocolate, caramel, or raspberry.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                        entry.target.classList.remove('fade-out');
+                    } else {
+                        entry.target.classList.remove('fade-in');
+                        entry.target.classList.add('fade-out');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '50px'
+            });
+
+            const menuTitle = document.querySelector('.menu-title');
+            const menuGrid = document.querySelector('.menu-grid');
+
+            if (menuTitle) observer.observe(menuTitle);
+            if (menuGrid) observer.observe(menuGrid);
+        });
+    </script>
+</body>
+</html> 

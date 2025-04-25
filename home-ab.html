@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Playfair Display', serif;
+            background: #1c1c1c;
+            color: #e3d6c4;
+        }
+
+        .about-section {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 80px 0;
+            background: #1c1c1c;
+        }
+
+        .about-container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 80px;
+            padding: 0 80px;
+        }
+
+        .about-content {
+            flex: 0.8;
+            max-width: 600px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+
+        .about-content.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .about-content.fade-out {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .about-label {
+            position: relative;
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #caa76a;
+            padding-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        .about-label::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 40px;
+            height: 1px;
+            background: #caa76a;
+        }
+
+        .about-title {
+            font-size: 72px;
+            color: #e3d6c4;
+            margin: 0 0 40px;
+            line-height: 1.1;
+        }
+
+        .about-text {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #e3d6c4;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .about-cta {
+            display: inline-flex;
+            align-items: center;
+            color: #caa76a;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            padding: 12px 32px;
+            border: 1px solid #caa76a;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: #caa76a;
+            transition: transform 0.6s ease;
+            z-index: 0;
+        }
+
+        .about-cta:hover {
+            color: #1c1c1c;
+        }
+
+        .about-cta:hover::before {
+            transform: translateX(100%);
+        }
+
+        .about-cta span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-cta::after {
+            display: none;
+        }
+
+        .about-image {
+            flex: 1.2;
+            height: 600px;
+            opacity: 0;
+            transform: translateX(20px);
+            transition: all 0.8s ease;
+        }
+
+        .about-image.fade-in {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .about-image.fade-out {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @media (max-width: 1200px) {
+            .about-container {
+                padding: 0 60px;
+                gap: 60px;
+            }
+
+            .about-title {
+                font-size: 64px;
+            }
+
+            .about-image {
+                height: 500px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .about-section {
+                padding: 60px 0;
+            }
+
+            .about-container {
+                flex-direction: column;
+                padding: 0 40px;
+            }
+
+            .about-content {
+                text-align: center;
+                max-width: 700px;
+            }
+
+            .about-label::before {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .about-image {
+                height: 500px;
+                width: 100%;
+            }
+
+            .about-cta {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .about-container {
+                padding: 0 30px;
+            }
+
+            .about-title {
+                font-size: 48px;
+            }
+
+            .about-text {
+                font-size: 16px;
+            }
+
+            .about-image {
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .about-section {
+                padding: 60px 0;
+            }
+
+            .about-container {
+                padding: 0 20px;
+            }
+
+            .about-title {
+                font-size: 40px;
+            }
+
+            .about-text {
+                padding: 0 40px;
+                text-align: left;
+            }
+
+            .about-image {
+                height: 300px;
+            }
+        }
+        
+        /* Force visibility for Elementor editing */
+.about-content,
+.about-image {
+    opacity: 1 !important;
+    transform: none !important;
+}
+    </style>
+</head>
+<body>
+    <section class="about-section">
+        <div class="about-container">
+            <div class="about-content">
+                <div class="about-label">ABOUT US</div>
+                <h2 class="about-title">Our Story</h2>
+                <p class="about-text">At The Bourbon MD, we bring together the timeless pairing of spirits and cigars. Our selections are crafted for those who appreciate depth, tradition, and a place to unwind with good company and great flavor.</p>
+                <a href="#more" class="about-cta"><span>Discover More</span></a>
+            </div>
+            <div class="about-image">
+                <img src="https://thebourbonmd.com/wp-content/uploads/2025/04/MD-STAFF.jpg" alt="The Bourbon MD Team">
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                        entry.target.classList.remove('fade-out');
+                    } else {
+                        entry.target.classList.remove('fade-in');
+                        entry.target.classList.add('fade-out');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '50px'
+            });
+
+            const aboutContent = document.querySelector('.about-content');
+            const aboutImage = document.querySelector('.about-image');
+
+            if (aboutContent) observer.observe(aboutContent);
+            if (aboutImage) observer.observe(aboutImage);
+        });
+    </script>
+</body>
+</html> 

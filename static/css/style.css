@@ -564,38 +564,20 @@ html {
 }
 
 @media (max-width: 992px) {
-    .about-section {
-        padding: 60px 0;
-    }
-
     .about-container {
         flex-direction: column;
-        padding: 0 40px;
+        padding: 60px 40px;
+        gap: 40px;
     }
 
     .about-content {
         text-align: center;
-        max-width: 700px;
-    }
-
-    .about-label::before {
-        left: 50%;
-        transform: translateX(-50%);
+        max-width: 100%;
     }
 
     .about-image {
-        height: 500px;
         width: 100%;
-    }
-
-    .about-cta {
-        justify-content: center;
-    }
-}
-
-@media (max-width: 768px) {
-    .about-container {
-        padding: 0 30px;
+        height: 400px;
     }
 
     .about-title {
@@ -605,48 +587,106 @@ html {
     .about-text {
         font-size: 16px;
     }
+}
+
+@media (max-width: 768px) {
+    .about-container {
+        padding: 40px 30px;
+    }
 
     .about-image {
-        height: 400px;
+        height: 300px;
     }
 
-    .hero-content {
-        padding: 0 40px;
-        max-width: 600px;
+    .about-title {
+        font-size: 36px;
     }
 
-    .hero-title {
-        font-size: 64px;
-    }
-
-    .hero-subtitle {
-        font-size: 22px;
-        padding: 0 20px;
-        margin: 35px auto;
-    }
-
-    .hero-divider {
-        margin: 35px auto;
-    }
-
-    .hero-cta {
-        padding: 18px 36px;
+    .about-text {
         font-size: 15px;
-        margin-top: 35px;
     }
 
-    .hero-title-wrapper {
-        margin-bottom: 35px;
-    }
-
-    .hero-title-wrapper::before,
-    .hero-title-wrapper::after {
-        width: 40px;
-        height: 40px;
+    .about-cta {
+        padding: 12px 25px;
+        font-size: 13px;
     }
 }
 
 @media (max-width: 480px) {
+    /* Reset container widths */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html, body {
+        width: 100%;
+        overflow-x: hidden;
+        position: relative;
+    }
+
+    /* Header adjustments */
+    .header-container {
+        width: 100%;
+        padding: 15px;
+        margin: 0;
+    }
+
+    .company-name {
+        font-size: 18px;
+    }
+
+    /* Hero section adjustments */
+    .hero-section {
+        width: 100%;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .hero-content {
+        width: 100%;
+        padding: 20px;
+        margin: 0;
+        text-align: center;
+    }
+
+    .hero-title-wrapper {
+        padding: 20px;
+        margin: 0 auto;
+        max-width: 300px;
+    }
+
+    .hero-title {
+        font-size: 32px;
+        margin-bottom: 20px;
+        line-height: 1.2;
+    }
+
+    .hero-divider {
+        width: 60px;
+        margin: 20px auto;
+    }
+
+    .hero-subtitle {
+        font-size: 16px;
+        margin: 20px auto;
+        max-width: 280px;
+        line-height: 1.4;
+    }
+
+    .hero-cta {
+        font-size: 14px;
+        padding: 12px 24px;
+        margin: 20px auto;
+        display: inline-block;
+    }
+
+    /* About section adjustments */
     .about-section {
         padding: 40px 0;
     }
@@ -656,53 +696,19 @@ html {
     }
 
     .about-title {
-        font-size: 40px;
+        font-size: 32px;
+        margin-bottom: 20px;
     }
 
-    .about-image {
-        height: 300px;
-    }
-
-    .hero-content {
-        padding: 0 32px;
-    }
-
-    .hero-title {
-        font-size: 46px;
-    }
-
-    .hero-title-wrapper {
+    .about-text {
+        font-size: 16px;
+        line-height: 1.6;
         margin-bottom: 30px;
     }
 
-    .hero-subtitle {
-        font-size: 20px;
-        padding: 0 10px;
-        margin: 30px auto;
-        line-height: 1.5;
-    }
-
-    .hero-divider {
-        margin: 30px auto;
-    }
-
-    .hero-cta {
-        padding: 16px 32px;
+    .about-cta {
         font-size: 14px;
-        margin-top: 30px;
-        width: 80%;
-        max-width: 280px;
-    }
-
-    .hero-title-wrapper::before,
-    .hero-title-wrapper::after {
-        width: 30px;
-        height: 30px;
-    }
-
-    .scroll-indicator {
-        bottom: 32px;
-        font-size: 20px;
+        padding: 12px 24px;
     }
 }
 
@@ -791,7 +797,7 @@ html {
     background-color: #1c1c1c;
     overflow: hidden;
     padding: 100px 0 0;
-}
+  }
 
 .beverage-section {
     position: relative;
@@ -923,35 +929,98 @@ html {
     display: block;
 }
 
-@media (max-width: 768px) {
-    .cigar-section {
+@media (max-width: 992px) {
+    .cigar-section,
+    .beverage-section,
+    .food-section {
+    flex-direction: column;
         height: auto;
-        min-height: 100vh;
-        flex-direction: column;
-        padding: 60px 0 0;
+        padding: 60px 40px;
     }
 
-    .beverage-section {
-        height: auto;
-        min-height: 100vh;
-        flex-direction: column;
+    .cigar-text,
+    .beverage-text,
+    .food-text {
+        width: 100%;
         padding: 0;
+        margin-bottom: 40px;
     }
 
-    .cigar-image-container, .beverage-image-container {
-        height: 50vh;
+    .cigar-image-container,
+    .beverage-image-container,
+    .food-image-container {
+        width: 100%;
+        height: 400px;
     }
 
-    .cigar-image-container::before, .beverage-image-container::before {
-        background: linear-gradient(180deg, #1c1c1c 0%, transparent 20%);
+    .cigar-text h2,
+    .beverage-text h2,
+    .food-text h2 {
+        font-size: 48px;
     }
 
-    .cigar-text, .beverage-text {
-        padding: 0 20px;
+    .subtitle {
+        font-size: 20px;
     }
 }
 
+@media (max-width: 768px) {
+    .cigar-section,
+    .beverage-section,
+    .food-section {
+        padding: 40px 30px;
+    }
 
+    .cigar-image-container,
+    .beverage-image-container,
+    .food-image-container {
+        height: 300px;
+    }
+
+    .cigar-text h2,
+    .beverage-text h2,
+    .food-text h2 {
+        font-size: 36px;
+    }
+
+    .subtitle {
+        font-size: 18px;
+    }
+
+    .cta-button {
+        padding: 12px 25px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cigar-section,
+    .beverage-section,
+    .food-section {
+        padding: 30px 20px;
+    }
+
+    .cigar-image-container,
+    .beverage-image-container,
+    .food-image-container {
+        height: 250px;
+    }
+
+    .cigar-text h2,
+    .beverage-text h2,
+    .food-text h2 {
+        font-size: 32px;
+    }
+
+    .subtitle {
+        font-size: 16px;
+    }
+
+    .cta-button {
+        padding: 10px 20px;
+        font-size: 12px;
+    }
+}
 
 /* ///////////// */
 /* ///////////// */
@@ -991,12 +1060,12 @@ html {
 .beverage-text.fade-in {
     opacity: 1;
     transform: translateX(0);
-}
+  }
 
 .beverage-text.fade-out {
     opacity: 0;
     transform: translateX(20px);
-}
+  }
 
 .beverage-text h2 {
     color: #e3d6c4;
@@ -1034,7 +1103,7 @@ html {
     height: 2px;
     background-color: #caa76a;
     margin: 24px 0;
-}
+  }
 
 .beverage-text .subtitle {
     font-size: 22px;
@@ -1042,9 +1111,9 @@ html {
     margin-bottom: 32px;
     max-width: 100%;
     word-wrap: break-word;
-}
+  }
 
-.cta-button {
+  .cta-button {
     display: inline-block;
     background-color: #f4ede4;
     color: #1c1c1c;
@@ -1058,11 +1127,11 @@ html {
     border-radius: 2px;
     width: fit-content;
     text-align: center;
-}
+  }
 
-.cta-button:hover {
+  .cta-button:hover {
     background-color: #caa76a;
-}
+  }
 
 
 /* ///////////// */
@@ -1089,12 +1158,12 @@ html {
     transform: translateX(-20px);
     transition: opacity 0.8s ease, transform 0.8s ease;
     color: #e3d6c4;
-}
+  }
 
 .food-text.fade-in {
     opacity: 1;
     transform: translateX(0);
-}
+  }
 
 .food-text h2 {
     color: #e3d6c4;
@@ -1160,47 +1229,100 @@ html {
     height: 100%;
     object-fit: cover;
     display: block;
-}
+  }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
+    .cigar-section,
+    .beverage-section,
     .food-section {
-        height: auto;
-        min-height: 100vh;
         flex-direction: column;
-        padding: 0 0 60px;
+        height: auto;
+        padding: 60px 40px;
     }
 
+    .cigar-text,
+    .beverage-text,
     .food-text {
-        flex: 0 0 100%;
-        padding: 0 20px;
+        width: 100%;
+        padding: 0;
         margin-bottom: 40px;
-        text-align: center;
     }
 
+    .cigar-image-container,
+    .beverage-image-container,
+    .food-image-container {
+        width: 100%;
+        height: 400px;
+    }
+
+    .cigar-text h2,
+    .beverage-text h2,
     .food-text h2 {
         font-size: 48px;
     }
 
-    .food-text .divider {
-        margin: 24px auto;
-    }
-
-    .food-text .subtitle {
-        margin: 0 auto 32px;
-    }
-
-    .food-image-container {
-        flex: 0 0 100%;
-        height: 50vh;
-    }
-
-    .food-image-container::before {
-        background: linear-gradient(180deg, #1c1c1c 0%, transparent 20%);
+    .subtitle {
+        font-size: 20px;
     }
 }
 
+@media (max-width: 768px) {
+    .cigar-section,
+    .beverage-section,
+    .food-section {
+        padding: 40px 30px;
+    }
 
+    .cigar-image-container,
+    .beverage-image-container,
+    .food-image-container {
+        height: 300px;
+    }
 
+    .cigar-text h2,
+    .beverage-text h2,
+    .food-text h2 {
+        font-size: 36px;
+    }
+
+    .subtitle {
+        font-size: 18px;
+    }
+
+    .cta-button {
+        padding: 12px 25px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cigar-section,
+    .beverage-section,
+    .food-section {
+        padding: 30px 20px;
+    }
+
+    .cigar-image-container,
+    .beverage-image-container,
+    .food-image-container {
+        height: 250px;
+    }
+
+    .cigar-text h2,
+    .beverage-text h2,
+    .food-text h2 {
+        font-size: 32px;
+    }
+
+    .subtitle {
+        font-size: 16px;
+    }
+
+    .cta-button {
+        padding: 10px 20px;
+        font-size: 12px;
+    }
+}
 
 /* ///////////// */
 /* ///////////// */
@@ -1337,7 +1459,7 @@ html {
     color: #e3d6c4;
     position: relative;
     z-index: 1;
-}
+  }
 
 .review-author {
     font-family: 'Playfair Display', serif;
@@ -1463,6 +1585,97 @@ html {
 
     .review-nav-button {
         padding: 10px;
+    }
+}
+
+@media (max-width: 992px) {
+    .reviews-section {
+        padding: 60px 40px;
+    }
+
+    .reviews-title {
+        font-size: 48px;
+        margin-bottom: 40px;
+    }
+
+    .review-content {
+        padding: 30px;
+    }
+
+    .review-text {
+        font-size: 20px;
+    }
+
+    .review-author {
+        font-size: 22px;
+    }
+
+    .review-date {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .reviews-section {
+        padding: 40px 30px;
+    }
+
+    .reviews-title {
+        font-size: 36px;
+        margin-bottom: 30px;
+    }
+
+    .review-content {
+        padding: 25px;
+    }
+
+    .review-text {
+        font-size: 18px;
+    }
+
+    .review-author {
+        font-size: 20px;
+    }
+
+    .review-date {
+        font-size: 13px;
+    }
+
+    .review-nav-button {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+@media (max-width: 480px) {
+    .reviews-section {
+        padding: 30px 20px;
+    }
+
+    .reviews-title {
+        font-size: 32px;
+        margin-bottom: 25px;
+    }
+
+    .review-content {
+        padding: 20px;
+    }
+
+    .review-text {
+        font-size: 16px;
+    }
+
+    .review-author {
+        font-size: 18px;
+    }
+
+    .review-date {
+        font-size: 12px;
+    }
+
+    .review-nav-button {
+        width: 30px;
+        height: 30px;
     }
 }
 
@@ -1755,9 +1968,9 @@ html {
 @keyframes patternMove {
     from { background-position: 0 0; }
     to { background-position: 200px 200px; }
-}
+  }
 
-@media (max-width: 1200px) {
+  @media (max-width: 1200px) {
     .vip-section {
         margin: 0 20px;
         padding: 0;
@@ -1826,7 +2039,7 @@ html {
     }
 
     .vip-description {
-        font-size: 20px;
+      font-size: 20px;
         line-height: 1.6;
         margin: 0 auto 40px;
         padding: 0 20px;
@@ -2368,7 +2581,7 @@ html {
     flex: 0 0 250px;
     margin-right: 40px;
     display: flex;
-    flex-direction: column;
+      flex-direction: column;
     align-items: flex-start;
 }
 
@@ -2381,7 +2594,7 @@ html {
 
 .footer-logo {
     width: 150px;
-    height: auto;
+      height: auto;
     margin-bottom: 15px;
     display: block;
 }
@@ -2450,7 +2663,7 @@ html {
     margin-top: 40px;
     padding: 12px 40px;
     border-top: 1px solid rgba(202, 167, 106, 0.15);
-    text-align: center;
+      text-align: center;
     font-size: 12px;
     color: #caa76a;
     letter-spacing: 1px;
@@ -2518,7 +2731,7 @@ html {
         text-align: center;
         margin-right: 0;
         margin-bottom: 30px;
-        align-items: center;
+      align-items: center;
     }
 
     .footer-section h3 {
@@ -2704,7 +2917,7 @@ html {
     }
 
     .hours-title {
-        font-size: 48px;
+      font-size: 48px;
         margin-bottom: 60px;
     }
 
@@ -2717,7 +2930,7 @@ html {
     }
 
     .time-slot {
-        font-size: 20px;
+      font-size: 20px;
     }
 
     .hours-note {
@@ -2851,7 +3064,7 @@ html {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 40px;
-    text-align: center;
+      text-align: center;
 }
 
 .cigar-menu-title {
@@ -2961,4 +3174,616 @@ html {
     transition: all 0.8s ease;
     font-size: 18px;
     letter-spacing: 1px;
+}
+
+@media (max-width: 992px) {
+    .header-container {
+        padding: 15px 20px;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100vh;
+        background: #1c1c1c;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+        transition: right 0.3s ease;
+        z-index: 1000;
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .mobile-menu-btn {
+        display: block;
+        z-index: 1001;
+    }
+
+    .mobile-menu-btn span {
+        display: block;
+        width: 25px;
+        height: 2px;
+        background-color: #e3d6c4;
+        margin: 5px 0;
+        transition: all 0.3s ease;
+    }
+
+    .mobile-menu-btn.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .mobile-menu-btn.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .mobile-menu-btn.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+    }
+}
+
+@media (max-width: 768px) {
+    .header-logo {
+        width: 40px;
+    }
+
+    .company-name {
+        font-size: 20px;
+    }
+
+    .nav-link {
+        font-size: 18px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .header-container {
+        padding: 10px 15px;
+    }
+
+    .header-logo {
+        width: 35px;
+    }
+
+    .company-name {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 992px) {
+    .hero-section {
+        height: 80vh;
+    }
+
+    .hero-content {
+        padding: 0 30px;
+    }
+
+    .hero-title {
+        font-size: 64px;
+    }
+
+    .hero-subtitle {
+        font-size: 24px;
+        padding: 0 20px;
+    }
+
+    .hero-cta {
+        padding: 15px 30px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        height: 70vh;
+    }
+
+    .hero-content {
+        padding: 0 20px;
+    }
+
+    .hero-title {
+        font-size: 48px;
+    }
+
+    .hero-subtitle {
+        font-size: 20px;
+        padding: 0 15px;
+    }
+
+    .hero-cta {
+        padding: 12px 25px;
+        font-size: 13px;
+    }
+
+    .scroll-indicator {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-section {
+        height: 60vh;
+    }
+
+    .hero-content {
+        padding: 0 15px;
+    }
+
+    .hero-title {
+      font-size: 36px;
+    }
+
+    .hero-subtitle {
+        font-size: 16px;
+        padding: 0 10px;
+    }
+
+    .hero-cta {
+        padding: 10px 20px;
+        font-size: 12px;
+    }
+
+    .scroll-indicator {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 992px) {
+    .vip-section {
+        padding: 60px 40px;
+    }
+
+    .vip-title {
+        font-size: 48px;
+    }
+
+    .vip-description {
+        font-size: 20px;
+    }
+
+    .vip-button {
+        padding: 15px 30px;
+        font-size: 14px;
+    }
+
+    .hours-section {
+        padding: 60px 40px;
+    }
+
+    .hours-title {
+        font-size: 48px;
+        margin-bottom: 40px;
+    }
+
+    .hours-grid {
+        padding: 30px;
+    }
+
+    .day-name {
+        font-size: 24px;
+    }
+
+    .time-slot {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .vip-section {
+        padding: 40px 30px;
+    }
+
+    .vip-title {
+        font-size: 36px;
+    }
+
+    .vip-description {
+      font-size: 18px;
+    }
+
+    .vip-button {
+        padding: 12px 25px;
+      font-size: 13px;
+    }
+
+    .hours-section {
+        padding: 40px 30px;
+    }
+
+    .hours-title {
+        font-size: 36px;
+        margin-bottom: 30px;
+    }
+
+    .hours-grid {
+        padding: 25px;
+    }
+
+    .day-name {
+        font-size: 20px;
+    }
+
+    .time-slot {
+        font-size: 18px;
+    }
+
+    .hours-note {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .vip-section {
+        padding: 30px 20px;
+    }
+
+    .vip-title {
+        font-size: 32px;
+    }
+
+    .vip-description {
+        font-size: 16px;
+    }
+
+    .vip-button {
+        padding: 10px 20px;
+        font-size: 12px;
+    }
+
+    .hours-section {
+        padding: 30px 20px;
+    }
+
+    .hours-title {
+        font-size: 32px;
+        margin-bottom: 25px;
+    }
+
+    .hours-grid {
+        padding: 20px;
+    }
+
+    .day-name {
+        font-size: 18px;
+    }
+
+    .time-slot {
+        font-size: 16px;
+    }
+
+    .hours-note {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 992px) {
+    .menu-beverages-section,
+    .food-menu-section {
+        padding: 80px 0;
+    }
+
+    .menu-beverages-title,
+    .food-menu-title {
+        font-size: 42px;
+        margin-bottom: 30px;
+    }
+
+    .menu-beverages-note,
+    .food-menu-note {
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+
+    .menu-beverages-grid,
+    .food-menu-grid {
+        gap: 25px;
+    }
+
+    .menu-beverages-item,
+    .food-menu-item {
+        padding: 25px;
+        min-height: 160px;
+    }
+
+    .menu-beverages-name,
+    .food-item-name {
+        font-size: 24px;
+    }
+
+    .menu-beverages-price,
+    .food-item-price {
+        font-size: 20px;
+    }
+
+    .menu-beverages-description,
+    .food-item-description {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 768px) {
+    .menu-beverages-section,
+    .food-menu-section {
+        padding: 60px 0;
+    }
+
+    .menu-beverages-title,
+    .food-menu-title {
+        font-size: 36px;
+        margin-bottom: 25px;
+    }
+
+    .menu-beverages-note,
+    .food-menu-note {
+        font-size: 16px;
+        margin-bottom: 25px;
+    }
+
+    .menu-beverages-grid,
+    .food-menu-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .menu-beverages-item,
+    .food-menu-item {
+        padding: 20px;
+        min-height: 140px;
+    }
+
+    .menu-beverages-name,
+    .food-item-name {
+        font-size: 22px;
+    }
+
+    .menu-beverages-price,
+    .food-item-price {
+        font-size: 18px;
+    }
+
+    .menu-beverages-description,
+    .food-item-description {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .menu-beverages-section,
+    .food-menu-section {
+        margin-bottom: 80px;
+    }
+
+    .cigar-section,
+    .beverage-section,
+    .food-section {
+        margin: 60px 0;
+        padding: 0;
+    }
+
+    .cigar-text,
+    .beverage-text,
+    .food-text {
+        padding: 40px 20px;
+        text-align: center;
+    }
+
+    .cigar-text h2,
+    .beverage-text h2,
+    .food-text h2 {
+        font-size: 32px;
+        margin-bottom: 20px;
+    }
+
+    .cigar-text .divider,
+    .beverage-text .divider,
+    .food-text .divider {
+        width: 60px;
+        height: 2px;
+        background: linear-gradient(90deg, #caa76a, #8b6b3d);
+        margin: 20px auto;
+    }
+
+    .cigar-text .subtitle,
+    .beverage-text .subtitle,
+    .food-text .subtitle {
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+
+    .cigar-image-container,
+    .beverage-image-container,
+    .food-image-container {
+        width: 100%;
+        height: 300px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .cigar-image-container img,
+    .beverage-image-container img,
+    .food-image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .beverage-section {
+        flex-direction: column;
+    }
+
+    .beverage-text-wrapper {
+        order: -1;
+    }
+
+    .footer-container {
+        padding: 40px 20px;
+    }
+
+    .footer-sections-wrapper {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .footer-section {
+        width: 100%;
+        text-align: center;
+    }
+
+    .footer-section.contact-section {
+        margin-top: 0;
+    }
+
+    .footer-bottom {
+        padding: 20px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Reset all margins and padding */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html, body {
+        width: 100%;
+        overflow-x: hidden;
+        position: relative;
+    }
+
+    /* Header */
+    .header-container {
+        width: 100%;
+        padding: 20px;
+        margin: 0;
+    }
+
+    /* Hero section */
+    .hero-section {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .hero-content {
+        width: 100%;
+        padding: 40px 20px;
+        margin: 0;
+    }
+
+    /* About section */
+    .about-section {
+        width: 100%;
+        margin: 40px 0;
+        padding: 0;
+    }
+
+    .about-container {
+        width: 100%;
+        padding: 0 20px;
+        margin: 0;
+    }
+
+    /* Cigar, Beverage, and Food sections */
+    .cigar-section,
+    .beverage-section,
+    .food-section {
+        width: 100%;
+        margin: 40px 0;
+        padding: 0;
+    }
+
+    .cigar-text,
+    .beverage-text,
+    .food-text {
+        width: 100%;
+        padding: 40px 20px;
+        margin: 0;
+    }
+
+    .cigar-image-container,
+    .beverage-image-container,
+    .food-image-container {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Reviews section */
+    .reviews-section {
+        width: 100%;
+        padding: 40px 20px;
+        margin: 0;
+    }
+
+    .reviews-container {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* VIP section */
+    .vip-section {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    .vip-content {
+        width: 100%;
+        padding: 40px 20px;
+        margin: 0;
+    }
+
+    /* Hours section */
+    .hours-section {
+        width: 100%;
+        padding: 40px 20px;
+        margin: 0;
+    }
+
+    .hours-content {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* Footer */
+    .footer-container {
+        width: 100%;
+        padding: 40px 20px;
+        margin: 0;
+    }
+
+    .footer-sections-wrapper {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* Ensure all content stays within bounds */
+    .nav-links {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .review-carousel {
+        width: 100%;
+        padding: 0;
+    }
+
+    .review-slide {
+        width: 100%;
+        padding: 0 20px;
+    }
 }

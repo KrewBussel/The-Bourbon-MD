@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            background: #1c1c1c;
+        }
+
+        .header {
+            background: linear-gradient(180deg, 
+                #242424 0%,
+                #201f1f 20%,
+                #1e1e1e 40%,
+                #1d1d1d 60%,
+                #1c1c1c 80%,
+                #1c1c1c 100%
+            );
+            position: relative;
+            padding: 120px 0 40px;
+            text-align: center;
+            margin-top: 0;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, 
+                    rgba(202, 167, 106, 0.15) 0%,
+                    transparent 40%
+                ),
+                radial-gradient(circle at 80% 80%, 
+                    rgba(202, 167, 106, 0.15) 0%,
+                    transparent 40%
+                ),
+                radial-gradient(circle at 50% 50%, 
+                    rgba(202, 167, 106, 0.1) 0%,
+                    transparent 60%
+                );
+            pointer-events: none;
+            opacity: 0.8;
+            mix-blend-mode: soft-light;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg,
+                rgba(202, 167, 106, 0.05) 0%,
+                transparent 20%,
+                transparent 80%,
+                rgba(202, 167, 106, 0.05) 100%
+            );
+            pointer-events: none;
+            animation: shimmer 8s infinite linear;
+        }
+
+        .header__title {
+            font-family: 'Playfair Display', serif;
+            font-size: 64px;
+            color: #e3d6c4;
+            margin: 0;
+            position: relative;
+            padding-top: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+
+        .header__title.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .header__title.fade-out {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .header__title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent,
+                #caa76a,
+                #e3d6c4,
+                #caa76a,
+                transparent
+            );
+            margin: 20px auto 0;
+        }
+
+        @keyframes shimmer {
+            0% {
+                opacity: 0.3;
+                transform: translateY(-100%) translateX(-100%) rotate(45deg);
+            }
+            50% {
+                opacity: 0.6;
+            }
+            100% {
+                opacity: 0.3;
+                transform: translateY(100%) translateX(100%) rotate(45deg);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .header {
+                padding: 100px 0 30px;
+            }
+            
+            .header__title {
+                font-size: 56px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 80px 0 25px;
+            }
+            
+            .header__title {
+                font-size: 42px;
+                padding-top: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 70px 0 20px;
+            }
+            
+            .header__title {
+                font-size: 32px;
+                padding-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1 class="header__title">Contact</h1>
+    </header>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                        entry.target.classList.remove('fade-out');
+                    } else {
+                        entry.target.classList.remove('fade-in');
+                        entry.target.classList.add('fade-out');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '50px'
+            });
+
+            const headerTitle = document.querySelector('.header__title');
+            if (headerTitle) observer.observe(headerTitle);
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,303 @@
+<style>
+    .footer-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 80px 80px 0;
+        background-color: #1c1c1c;
+        color: #e3d6c4;
+        font-family: 'Playfair Display', serif;
+        flex-wrap: nowrap;
+        gap: 40px;
+    }
+    
+    .footer-logo-section {
+        flex: 0 0 200px;
+        margin-right: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .footer-sections-wrapper {
+        display: flex;
+        flex: 1;
+        justify-content: space-between;
+        gap: 40px;
+    }
+    
+    .footer-logo {
+        width: 120px;
+        height: auto;
+        margin-bottom: 15px;
+        display: block;
+    }
+    
+    .footer-logo:hover {
+        filter: drop-shadow(0 0 24px rgba(202, 167, 106, 0.6));
+    }
+    
+    .company-name {
+        font-size: 20px;
+        font-weight: 500;
+        color: #caa76a;
+        margin-bottom: 15px;
+    }
+    
+    .footer-section {
+        flex: 1;
+        min-width: 160px;
+        max-width: 280px;
+    }
+    
+    .footer-section:last-of-type {
+        padding-bottom: 30px;
+    }
+    
+    .footer-section.footer-contact-info {
+        flex: 1.2;
+    }
+    
+    .footer-section h3 {
+        color: #caa76a;
+        font-size: 18px;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 500;
+    }
+    
+    .footer-section p {
+        margin: 12px 0;
+        font-size: 16px;
+        line-height: 1.8;
+        color: #e3d6c4;
+        word-break: break-word;
+    }
+    
+    .footer-section a {
+        color: #e3d6c4;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-size: 16px;
+        display: block;
+        margin-bottom: 12px;
+        letter-spacing: 1px;
+    }
+    
+    .footer-section a:hover {
+        color: #caa76a;
+        transform: translateX(5px);
+    }
+    
+    .footer-social-links {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .footer-social-links a {
+        display: block;
+        margin-right: 0;
+        transform: none;
+    }
+    
+    .footer-bottom {
+        width: 100%;
+        padding: 12px 40px;
+        border-top: 1px solid rgba(202, 167, 106, 0.15);
+        text-align: center;
+        font-size: 12px;
+        color: #caa76a;
+        letter-spacing: 1px;
+        background-color: rgba(28, 28, 28, 0.95);
+    }
+    
+    .footer-section .quick-links-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        width: 100%;
+    }
+
+    .quick-links-grid a {
+        margin-bottom: 0;
+    }
+    
+    @media (max-width: 1200px) {
+        .footer-container {
+            padding: 60px 30px 0;
+        }
+    
+        .footer-logo-section {
+            flex: 0 0 180px;
+            margin-right: 30px;
+        }
+    
+        .footer-sections-wrapper {
+            gap: 30px;
+        }
+    
+        .footer-section {
+            min-width: 140px;
+        }
+    
+        .footer-logo {
+            width: 100px;
+        }
+    
+        .company-name {
+            font-size: 18px;
+        }
+    }
+    
+    @media (max-width: 992px) {
+        .footer-sections-wrapper {
+            gap: 20px;
+        }
+    
+        .footer-section {
+            min-width: 120px;
+            max-width: none;
+        }
+    
+        .footer-section.footer-contact-info {
+            flex: 1;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .footer-container {
+            padding: 40px 25px 0;
+            flex-direction: column;
+        }
+    
+        .footer-sections-wrapper {
+            flex-wrap: wrap;
+            width: 100%;
+            gap: 30px;
+        }
+    
+        .footer-section {
+            flex: 0 0 calc(50% - 15px);
+            text-align: center;
+        }
+    
+        .footer-section.footer-contact-info {
+            flex: 0 0 calc(50% - 15px);
+        }
+    
+        .footer-logo-section {
+            width: 100%;
+            text-align: center;
+            margin-right: 0;
+            margin-bottom: 30px;
+            align-items: center;
+        }
+    
+        .footer-section h3 {
+            margin-bottom: 15px;
+        }
+    
+        .footer-section .quick-links-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    
+        .footer-bottom {
+            padding: 10px 25px;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .footer-container {
+            padding: 30px 20px 0;
+        }
+    
+        .footer-sections-wrapper {
+            gap: 20px;
+        }
+    
+        .footer-logo-section {
+            margin-bottom: 25px;
+        }
+    
+        .footer-section,
+        .footer-section.footer-contact-info {
+            flex: 0 0 100%;
+            margin-bottom: 20px;
+        }
+    
+        .footer-section:last-child {
+            margin-bottom: 0;
+        }
+    
+        .footer-section .quick-links-grid {
+            grid-template-columns: 1fr;
+        }
+    
+        .footer-bottom {
+            padding: 8px 20px;
+        }
+    }
+    
+    .footer-logo-section a {
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .footer-logo-section a:hover .company-name {
+        color: #e3d6c4;
+    }
+    </style>
+    
+    <div class="footer-container">
+        <div class="footer-logo-section">
+            <a href="/">
+                <img src="https://thebourbonmd.com/wp-content/uploads/2025/04/MD-LOGO-WHITE.png" alt="The Bourbon MD Logo" class="footer-logo">
+                <div class="company-name">The Bourbon MD</div>
+            </a>
+        </div>
+        
+        <div class="footer-sections-wrapper">
+            <div class="footer-section">
+                <h3>Location</h3>
+                <p>THE BOURBON MD LLC<br>
+                209 W Market St<br>
+                Bluffton, IN 46714<br>
+                United States</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <div class="footer-social-links">
+                    <a href="https://www.instagram.com/thebourbonmdllc" target="_blank">INSTAGRAM</a>
+                    <a href="https://www.facebook.com/thebourbonmd" target="_blank">FACEBOOK</a>
+                </div>
+            </div>
+            
+            <div class="footer-section footer-contact-info">
+                <h3>Contact</h3>
+                <p>Bourbon.MD.Bluffton@gmail.com<br>
+                +1 843 555 0123</p>
+            </div>
+    
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <div class="quick-links-grid">
+                    <a href="/">HOME</a>
+                    <a href="/about">ABOUT</a>
+                    <a href="/menu">MENU</a>
+                    <a href="https://thebourbonmd.com/#hours">HOURS</a>
+                    <a href="/about#vip">VIP</a>
+                    <a href="/contact">CONTACT</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <p>COPYRIGHT © 2024 THE BOURBON MD. ALL RIGHTS RESERVED | KB WEB SOLUTIONS</p>
+    </div>
+    

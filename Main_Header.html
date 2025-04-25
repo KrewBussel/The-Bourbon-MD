@@ -1,0 +1,219 @@
+<!-- HEADER -->
+<header class="custom-header">
+    <div class="header-inner">
+      <a href="/" class="logo-area">
+        <img src="https://thebourbonmd.com/wp-content/uploads/2025/04/MD-LOGO-WHITE.png" alt="The Bourbon MD Logo" class="logo-img">
+        <span class="logo-text">The Bourbon MD</span>
+      </a>
+  
+      <nav class="nav-links" id="navMenu">
+        <a href="/about" class="nav-link">About</a>
+        <a href="/menu" class="nav-link">Menu</a>
+        <a href="https://thebourbonmd.com/#hours" class="nav-link">Hours</a>
+        <a href="/about#vip" class="nav-link">VIP</a>
+        <a href="/contact" class="nav-link">Contact</a>
+      </nav>
+  
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+  
+  <!-- CSS -->
+  <style>
+  .custom-header {
+    width: 100%;
+    background-color: #1c1c1c;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    transition: all 0.3s ease;
+  }
+  
+  .header-inner {
+    width: 100%;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+  }
+  
+  .logo-img {
+    width: 50px;
+    height: auto;
+    display: block;
+  }
+  
+  .logo-text {
+    font-family: 'Playfair Display', serif;
+    color: #e3d6c4;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 40px;
+  }
+  
+  .nav-link {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #e3d6c4;
+    text-decoration: none;
+    text-transform: uppercase;
+    position: relative;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background-color: #caa76a;
+    transition: width 0.3s ease;
+  }
+  
+  .nav-link:hover {
+    color: #caa76a;
+  }
+  
+  .nav-link:hover::after {
+    width: 100%;
+  }
+  
+  .mobile-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    width: 30px;
+    height: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1001;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .mobile-toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: #e3d6c4;
+    transition: all 0.3s ease;
+  }
+  
+  /* Mobile Styles */
+  @media (max-width: 768px) {
+    .header-inner {
+      padding: 20px;
+    }
+
+    .nav-links {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 250px;
+      height: 100vh;
+      flex-direction: column;
+      background-color: #1c1c1c;
+      padding: 100px 30px 30px;
+      gap: 25px;
+      transition: right 0.3s ease;
+      box-shadow: -2px 0 10px rgba(0, 0, 0, 0.4);
+    }
+  
+    .nav-links.active {
+      right: 0;
+    }
+  
+    .mobile-toggle {
+      display: flex;
+      position: relative;
+      right: 0;
+    }
+  
+    .mobile-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+  
+    .mobile-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+  
+    .mobile-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+  
+    .nav-link {
+      font-size: 18px;
+      text-align: left;
+    }
+
+    .logo-text {
+      font-size: 20px;
+    }
+
+    .logo-img {
+      width: 40px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .header-inner {
+      padding: 15px;
+    }
+
+    .logo-text {
+      font-size: 18px;
+    }
+
+    .logo-img {
+      width: 35px;
+    }
+
+    .mobile-toggle {
+      width: 25px;
+      height: 20px;
+    }
+  }
+  </style>
+  
+  <!-- JS -->
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggleBtn = document.getElementById("mobileToggle");
+    const navMenu = document.getElementById("navMenu");
+  
+    toggleBtn.addEventListener("click", function () {
+      toggleBtn.classList.toggle("active");
+      navMenu.classList.toggle("active");
+    });
+  
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        toggleBtn.classList.remove("active");
+        navMenu.classList.remove("active");
+      });
+    });
+  });
+  </script>
+  

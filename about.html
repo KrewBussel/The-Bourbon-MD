@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #1c1c1c;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .about-title {
+            font-size: 64px;
+            color: #e3d6c4;
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+            width: 100%;
+            align-self: flex-start;
+        }
+
+        .about-title.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .about-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent,
+                #caa76a,
+                #e3d6c4,
+                #caa76a,
+                transparent
+            );
+        }
+
+        .founders-section {
+            padding: 60px 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            background: linear-gradient(180deg, 
+                #242424 0%,
+                #201f1f 20%,
+                #1e1e1e 40%,
+                #1d1d1d 60%,
+                #1c1c1c 80%,
+                #1c1c1c 100%
+            );
+            position: relative;
+            overflow: hidden;
+        }
+
+        .founders-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, 
+                    rgba(202, 167, 106, 0.15) 0%,
+                    transparent 40%
+                ),
+                radial-gradient(circle at 80% 80%, 
+                    rgba(202, 167, 106, 0.15) 0%,
+                    transparent 40%
+                );
+            pointer-events: none;
+            opacity: 0.8;
+            mix-blend-mode: soft-light;
+        }
+
+        .founders-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .founders-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-top: 40px;
+            width: 100%;
+        }
+
+        .founder-card {
+            background: rgba(28, 28, 28, 0.6);
+            border: 1px solid rgba(202, 167, 106, 0.2);
+            padding: 50px;
+            border-radius: 4px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+            max-width: 500px;
+        }
+
+        .founder-card.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .founder-image {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            margin: 0 auto 35px;
+            border: 3px solid #caa76a;
+            background: #1c1c1c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            color: #caa76a;
+        }
+
+        .founder-name {
+            font-size: 32px;
+            color: #caa76a;
+            margin-bottom: 15px;
+        }
+
+        .founder-title {
+            font-size: 20px;
+            color: #e3d6c4;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .founder-bio {
+            color: #e3d6c4;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        .history-section {
+            padding: 100px 0;
+            background: linear-gradient(180deg, 
+                #1c1c1c 0%,
+                #1d1d1d 20%,
+                #1e1e1e 40%,
+                #201f1f 60%,
+                #242424 80%,
+                #242424 100%
+            );
+            position: relative;
+            overflow: hidden;
+        }
+
+        .history-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, 
+                    rgba(202, 167, 106, 0.15) 0%,
+                    transparent 40%
+                ),
+                radial-gradient(circle at 80% 80%, 
+                    rgba(202, 167, 106, 0.15) 0%,
+                    transparent 40%
+                );
+            pointer-events: none;
+            opacity: 0.8;
+            mix-blend-mode: soft-light;
+        }
+
+        .history-timeline {
+            position: relative;
+            padding: 40px 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+
+        .timeline-item.fade-in {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline-year {
+            min-width: 120px;
+            font-size: 24px;
+            color: #caa76a;
+            font-weight: bold;
+            padding-right: 30px;
+            text-align: right;
+        }
+
+        .timeline-content {
+            background: rgba(28, 28, 28, 0.6);
+            border: 1px solid rgba(202, 167, 106, 0.2);
+            padding: 30px;
+            border-radius: 4px;
+            position: relative;
+            flex: 1;
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 30px;
+            width: 20px;
+            height: 20px;
+            background: #caa76a;
+            border-radius: 50%;
+        }
+
+        .timeline-title {
+            font-size: 24px;
+            color: #e3d6c4;
+            margin-bottom: 15px;
+        }
+
+        .timeline-text {
+            color: #e3d6c4;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .vip-section {
+            padding: 60px 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: linear-gradient(180deg, 
+                #1c1c1c 0%,
+                #1d1d1d 20%,
+                #1e1e1e 40%,
+                #201f1f 60%,
+                #242424 80%,
+                #242424 100%
+            );
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vip-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, 
+                    rgba(202, 167, 106, 0.1) 0%,
+                    transparent 50%
+                ),
+                radial-gradient(circle at 80% 80%, 
+                    rgba(202, 167, 106, 0.1) 0%,
+                    transparent 50%
+                );
+            pointer-events: none;
+            opacity: 0.8;
+            mix-blend-mode: soft-light;
+            animation: pulse 12s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 0.7;
+            }
+            100% {
+                opacity: 0.8;
+            }
+        }
+
+        .vip-card {
+            background: rgba(28, 28, 28, 0.7);
+            border: 2px solid rgba(202, 167, 106, 0.3);
+            padding: 80px;
+            border-radius: 8px;
+            max-width: 1000px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(202, 167, 106, 0.1);
+        }
+
+        .vip-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    -45deg,
+                    rgba(202, 167, 106, 0.05) 0px,
+                    rgba(202, 167, 106, 0.05) 1px,
+                    transparent 1px,
+                    transparent 10px
+                );
+            pointer-events: none;
+            animation: slide 60s linear infinite;
+        }
+
+        @keyframes slide {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 1000px 1000px;
+            }
+        }
+
+        .vip-card.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card-text {
+            font-size: 22px;
+            line-height: 1.6;
+            color: #e3d6c4;
+            text-align: center;
+            margin-bottom: 50px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .vip-benefits {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            padding: 30px;
+            background: rgba(28, 28, 28, 0.4);
+            border: 1px solid rgba(202, 167, 106, 0.2);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-item:hover {
+            transform: translateY(-5px);
+            background: rgba(28, 28, 28, 0.6);
+            border-color: rgba(202, 167, 106, 0.4);
+        }
+
+        .benefit-icon {
+            font-size: 32px;
+            color: #caa76a;
+            min-width: 45px;
+            text-align: center;
+        }
+
+        .benefit-text {
+            color: #e3d6c4;
+            font-size: 20px;
+            line-height: 1.6;
+        }
+
+        .vip-cta {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .vip-button {
+            display: inline-block;
+            padding: 18px 50px;
+            background: #caa76a;
+            color: #1c1c1c;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .vip-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                rgba(202, 167, 106, 0.8),
+                rgba(227, 214, 196, 0.8)
+            );
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+
+        .vip-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(202, 167, 106, 0.3);
+        }
+
+        .vip-button:hover::before {
+            opacity: 1;
+        }
+
+        .mission-statement {
+            margin-top: 60px;
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+
+        .mission-statement.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mission-text {
+            font-size: 24px;
+            color: #e3d6c4;
+            line-height: 1.6;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .mission-author {
+            font-size: 18px;
+            color: #caa76a;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .founders-section {
+                padding: 40px 0;
+                min-height: auto;
+            }
+
+            .about-title {
+                font-size: 48px;
+                margin-bottom: 40px;
+            }
+
+            .founders-grid {
+                gap: 40px;
+                margin-top: 30px;
+            }
+
+            .vip-section {
+                padding: 30px 0;
+                min-height: auto;
+            }
+
+            .vip-card {
+                padding: 25px 20px;
+            }
+
+            .card-text {
+                font-size: 16px;
+                margin-bottom: 25px;
+            }
+
+            .vip-benefits {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .benefit-item {
+                padding: 15px;
+                align-items: flex-start;
+            }
+
+            .benefit-icon {
+                font-size: 20px;
+                min-width: 30px;
+                margin-top: 4px;
+            }
+
+            .benefit-text {
+                font-size: 15px;
+                line-height: 1.5;
+            }
+
+            .vip-button {
+                padding: 12px 30px;
+                font-size: 16px;
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .mission-statement {
+                margin-top: 40px;
+            }
+
+            .mission-text {
+                font-size: 20px;
+            }
+
+            .mission-author {
+                font-size: 16px;
+            }
+
+            .founder-card {
+                padding: 30px;
+            }
+
+            .founder-bio {
+                font-size: 16px;
+            }
+
+            .founder-name {
+                font-size: 28px;
+            }
+
+            .founder-title {
+                font-size: 18px;
+            }
+
+            .founder-image {
+                width: 180px;
+                height: 180px;
+                margin-bottom: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .founders-section {
+                padding: 30px 0;
+            }
+
+            .about-title {
+                font-size: 36px;
+                margin-bottom: 30px;
+            }
+
+            .founders-grid {
+                gap: 30px;
+                margin-top: 20px;
+            }
+
+            .vip-section {
+                padding: 20px 0;
+            }
+
+            .vip-card {
+                padding: 20px 15px;
+            }
+
+            .card-text {
+                font-size: 15px;
+                margin-bottom: 20px;
+            }
+
+            .benefit-item {
+                padding: 12px;
+            }
+
+            .benefit-icon {
+                font-size: 18px;
+                min-width: 25px;
+            }
+
+            .benefit-text {
+                font-size: 14px;
+            }
+
+            .vip-button {
+                padding: 10px 25px;
+                font-size: 15px;
+            }
+
+            .mission-statement {
+                margin-top: 30px;
+            }
+
+            .mission-text {
+                font-size: 18px;
+            }
+
+            .mission-author {
+                font-size: 15px;
+            }
+
+            .founder-card {
+                padding: 25px;
+            }
+
+            .founder-bio {
+                font-size: 15px;
+            }
+
+            .founder-name {
+                font-size: 24px;
+            }
+
+            .founder-title {
+                font-size: 16px;
+            }
+
+            .founder-image {
+                width: 150px;
+                height: 150px;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="founders-section">
+        <div class="about-content">
+            <h2 class="about-title">The Founders</h2>
+            <div class="founders-content">
+                <div class="founders-grid">
+                    <div class="founder-card">
+                        <div class="founder-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3 class="founder-name">Joey Mossburg</h3>
+                        <p class="founder-title">Bourbon Connoisseur</p>
+                        <p class="founder-bio">With over 20 years of experience in the bourbon industry, Joey brings his extensive knowledge of distillation processes and flavor profiles to curate our exceptional collection.</p>
+                    </div>
+                    <div class="founder-card">
+                        <div class="founder-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3 class="founder-name">Nathan Dirig</h3>
+                        <p class="founder-title">Cigar Expert</p>
+                        <p class="founder-bio">Nathan's passion for premium cigars and dedication to creating memorable experiences has shaped The Bourbon MD into a premier destination for connoisseurs.</p>
+                    </div>
+                </div>
+
+                <div class="mission-statement">
+                    <p class="mission-text">"Our mission is to create a sanctuary where the art of bourbon and cigars converge, offering an unparalleled experience that celebrates tradition, craftsmanship, and the joy of shared moments."</p>
+                    <p class="mission-author">— The Bourbon MD</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="history-section">
+        <div class="about-content">
+            <h2 class="about-title">Our History</h2>
+            <div class="history-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">2015</div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">The Beginning</h3>
+                        <p class="timeline-text">The Bourbon MD was born from a shared passion between two friends who dreamed of creating a space where bourbon enthusiasts could gather, learn, and enjoy premium spirits in a sophisticated setting.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2017</div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">First Location</h3>
+                        <p class="timeline-text">We opened our doors in the heart of Louisville, Kentucky, with a carefully curated selection of 50 bourbons and a commitment to exceptional service.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2019</div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Expansion</h3>
+                        <p class="timeline-text">Our collection grew to over 100 bourbons, and we introduced our premium cigar selection, creating the perfect pairing experience for our guests.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2022</div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">VIP Program</h3>
+                        <p class="timeline-text">Launched our exclusive VIP membership program, offering our most dedicated patrons access to rare bottles, private events, and personalized experiences.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="vip-section" id="vip">
+        <div class="about-content">
+            <h2 class="about-title">VIP Membership</h2>
+            <div class="vip-card">
+                <p class="card-text">Experience unparalleled luxury as a distinguished member of Louisville's premier bourbon and cigar destination. Our exclusive VIP membership offers a curated collection of privileges designed for the discerning enthusiast.</p>
+                <div class="vip-benefits">
+                    <div class="benefit-item">
+                        <i class="fas fa-door-closed benefit-icon"></i>
+                        <p class="benefit-text">Private Spanish Cedar Humidor Locker with secure access</p>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-couch benefit-icon"></i>
+                        <p class="benefit-text">Exclusive access to the distinguished Wiecking Room Lounge</p>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-percent benefit-icon"></i>
+                        <p class="benefit-text">Preferred member pricing on VIP evenings</p>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-glass-whiskey benefit-icon"></i>
+                        <p class="benefit-text">Personalized premium glassware selection: Rocks or Glencairn</p>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-tshirt benefit-icon"></i>
+                        <p class="benefit-text">Signature member apparel and distinctive vehicle decal</p>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-glass-cheers benefit-icon"></i>
+                        <p class="benefit-text">Annual exclusive member celebration event</p>
+                    </div>
+                </div>
+                <div class="vip-cta">
+                    <a href="#contact" class="vip-button">Secure VIP Membership</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '50px'
+            });
+
+            const elements = document.querySelectorAll(
+                '.about-title, .timeline-item, .founder-card, .vip-card, .mission-statement'
+            );
+            elements.forEach(element => observer.observe(element));
+        });
+    </script>
+</body>
+</html> 

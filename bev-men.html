@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en" style="margin: 0; padding: 0;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1c1c1c;
+            min-height: 100%;
+            display: block;
+        }
+
+        .beverages-section {
+            margin-top: 0;
+            padding-top: 80px;
+            background-color: #151515;
+            padding-bottom: 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .beverages-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #151515;
+            z-index: 1;
+        }
+
+        .beverages-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .beverages-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            color: #e3d6c4;
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+
+        .beverages-title.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .beverages-title.fade-out {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .beverages-title::after {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent,
+                #caa76a,
+                #e3d6c4,
+                #caa76a,
+                transparent
+            );
+        }
+
+        .beverages-title::before,
+        .beverages-title span {
+            display: none;
+        }
+
+        .beverages-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+            justify-items: center;
+        }
+
+        .beverages-grid.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .beverages-grid.fade-out {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .beverage-item {
+            background: rgba(28, 28, 28, 0.6);
+            border: 1px solid rgba(202, 167, 106, 0.2);
+            padding: 35px;
+            position: relative;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .beverage-item:hover {
+            transform: translateY(-5px);
+            border-color: rgba(202, 167, 106, 0.4);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .beverage-item::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid rgba(202, 167, 106, 0.1);
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .beverage-item:hover::before {
+            border-color: rgba(202, 167, 106, 0.2);
+        }
+
+        .beverage-item:last-child:nth-child(2n+1) {
+            grid-column: 1 / -1;
+            max-width: 400px;
+        }
+
+        .beverage-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            border-bottom: none;
+        }
+
+        .beverage-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: #e3d6c4;
+            margin: 0;
+            flex-grow: 1;
+            padding-right: 20px;
+        }
+
+        .beverage-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            color: #caa76a;
+            margin: 0;
+            white-space: nowrap;
+        }
+
+        .beverage-description {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: #a8a8a8;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .beverage-note {
+            text-align: center;
+            color: #caa76a;
+            font-size: 14px;
+            margin-top: -10px;
+            margin-bottom: 60px;
+            font-style: italic;
+            letter-spacing: 0.5px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+
+        .beverage-note.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .beverage-note.fade-out {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @media (max-width: 992px) {
+            .beverages-section {
+                padding: 60px 0 80px;
+            }
+
+            .beverages-content {
+                padding: 0 30px;
+            }
+
+            .beverages-title {
+                font-size: 42px;
+                margin-bottom: 40px;
+            }
+
+            .beverage-note {
+                margin-top: 15px;
+                margin-bottom: 30px;
+            }
+
+            .beverages-grid {
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .beverages-section {
+                padding: 50px 0 70px;
+            }
+
+            .beverages-content {
+                padding: 0 20px;
+            }
+
+            .beverages-title {
+                font-size: 36px;
+                margin-bottom: 70px;
+            }
+
+            .beverages-title::after {
+                bottom: -25px;
+            }
+
+            .beverage-note {
+                margin-top: -8px;
+                margin-bottom: 50px;
+                font-size: 13px;
+            }
+
+            .beverages-grid {
+                gap: 25px;
+            }
+
+            .beverage-item {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .beverages-section {
+                padding: 40px 0 60px;
+            }
+
+            .beverages-content {
+                padding: 0 15px;
+            }
+
+            .beverages-title {
+                font-size: 32px;
+                margin-bottom: 60px;
+            }
+
+            .beverages-title::after {
+                bottom: -20px;
+            }
+
+            .beverage-note {
+                margin-top: -5px;
+                margin-bottom: 40px;
+                font-size: 12px;
+            }
+
+            .beverages-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .beverage-item {
+                padding: 20px;
+                max-width: 100%;
+            }
+            
+            .beverage-name {
+                font-size: 20px;
+            }
+            
+            .beverage-price {
+                font-size: 18px;
+            }
+
+            .beverage-description {
+                font-size: 14px;
+            }
+        }
+
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+        }
+
+        .fade-in-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+    <section class="beverages-section">
+        <div class="beverages-overlay"></div>
+        <div class="beverages-content">
+            <h2 class="beverages-title">Signature Cocktails</h2>
+            <p class="beverage-note">*All cocktails can be made non-alcoholic</p>
+            <div class="beverages-grid">
+                <div class="beverage-item">
+                    <div class="beverage-header">
+                        <h3 class="beverage-name">Old Fashioned</h3>
+                        <p class="beverage-price">$10/$12</p>
+                    </div>
+                    <p class="beverage-description">Bourbon, sugar, and bitters — the timeless classic.</p>
+                </div>
+
+                <div class="beverage-item">
+                    <div class="beverage-header">
+                        <h3 class="beverage-name">Manhattan</h3>
+                        <p class="beverage-price">$10/$12</p>
+                    </div>
+                    <p class="beverage-description">Rye whiskey, sweet vermouth, and bitters served up with class.</p>
+                </div>
+
+                <div class="beverage-item">
+                    <div class="beverage-header">
+                        <h3 class="beverage-name">Kentucky Mule</h3>
+                        <p class="beverage-price">$9/$11</p>
+                    </div>
+                    <p class="beverage-description">A bourbon twist on the classic mule with ginger beer and lime.</p>
+                </div>
+
+                <div class="beverage-item">
+                    <div class="beverage-header">
+                        <h3 class="beverage-name">Moscow Mule</h3>
+                        <p class="beverage-price">$9/$11</p>
+                    </div>
+                    <p class="beverage-description">Vodka, ginger beer, and lime served in a chilled copper mug.</p>
+                </div>
+
+                <div class="beverage-item">
+                    <div class="beverage-header">
+                        <h3 class="beverage-name">Margarita</h3>
+                        <p class="beverage-price">$8/$10</p>
+                    </div>
+                    <p class="beverage-description">Tequila, triple sec, and lime — shaken and served with salt rim.</p>
+                </div>
+
+                <div class="beverage-item">
+                    <div class="beverage-header">
+                        <h3 class="beverage-name">Espresso Martini</h3>
+                        <p class="beverage-price">$10/$12</p>
+                    </div>
+                    <p class="beverage-description">Rich espresso, vodka, and coffee liqueur — the pick-me-up cocktail.
+                    </p>
+                </div>
+
+                <div class="beverage-item">
+                    <div class="beverage-header">
+                        <h3 class="beverage-name">Bourbon Roast</h3>
+                        <p class="beverage-price">$11/$13</p>
+                    </div>
+                    <p class="beverage-description">A bold fusion of bourbon and cold brew — smooth, strong, and
+                        sippable.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                        entry.target.classList.remove('fade-out');
+                    } else {
+                        entry.target.classList.remove('fade-in');
+                        entry.target.classList.add('fade-out');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '50px'
+            });
+
+            const beveragesTitle = document.querySelector('.beverages-title');
+            const beverageNote = document.querySelector('.beverage-note');
+            const beveragesGrid = document.querySelector('.beverages-grid');
+
+            if (beveragesTitle) observer.observe(beveragesTitle);
+            if (beverageNote) observer.observe(beverageNote);
+            if (beveragesGrid) observer.observe(beveragesGrid);
+        });
+    </script>
+</body>
+
+</html>
